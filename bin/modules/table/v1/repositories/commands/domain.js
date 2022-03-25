@@ -8,6 +8,7 @@ const wrapper = require('../../../../../helpers/utils/wrapper');
 const command = require('../commands/command');
 const QRCode = require('qrcode');
 const moment = require('moment-timezone');
+const { table } = require('console');
 moment.tz('Asia/Jakarta');
 
 
@@ -24,7 +25,7 @@ class Table {
         const validPassword = await bcrypt.compare(payload.password, findTable[0].password);
         if (validPassword) {
             const dataResponse = {
-                noMeja: findTable[0].noMeja
+                no_meja: findTable[0].no_meja
             };
             const accesToken = await jwtAuth.generateToken(dataResponse, expiredToken.accesToken);
             dataResponse.accesToken = accesToken;
@@ -34,6 +35,8 @@ class Table {
     }
 
   async addTable (payload) {
+    const salt = await bcrypt.genSalt(10);
+    payload.password = await bcrypt.hash(payload.password, salt);
     try {
              const insertOneTable = await command.insertOneTable(payload);
               if (insertOneTable.err) {

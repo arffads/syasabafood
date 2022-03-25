@@ -34,7 +34,7 @@ const findProductByCategory = async (param) => {
 const findProductById = async (param) => {
   const { id } = param;
   const db = new Mysql(configs.get('/mysqlConfig'));
-  const query = `SELECT * FROM products WHERE products.id ='${id}' ORDER BY products.create_at ASC`;
+  const query = `SELECT * FROM products WHERE products.id ='${id}'`;
   const result = db.query(query);
   return result;
 }

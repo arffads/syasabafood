@@ -15,8 +15,8 @@ passport.use(new BasicStrategy((name, password, cb) => {
     });
 }));
 
-passport.use(new BasicStrategy((noMeja, password, cb) => {
-    Table.findTable(noMeja, (table) => {
+passport.use(new BasicStrategy((no_meja, password, cb) => {
+    Table.findTable(no_meja, (table) => {
         if (!table) {
             return cb(null, false);
         }

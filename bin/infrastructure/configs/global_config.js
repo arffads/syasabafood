@@ -11,7 +11,7 @@ const config = {
   ],
   authTable: [
     {
-      noMeja:process.env.BASIC_AUTH_TABLE,
+      no_meja:process.env.BASIC_AUTH_TABLE,
       password:process.env.BASIC_AUTH_PASSWORD,
     }
   ],

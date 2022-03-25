@@ -30,7 +30,7 @@ const updateUser = async (param) => {
 
 const deleteUser = async (param) => {
     const { id } = param;
-    const db = new Mysql(configs.get('mysqlConfig'));
+    const db = new Mysql(configs.get('/mysqlConfig'));
     const query = `DELETE FROM users WHERE users.id = ${id}`;
     const result = await db.query(query, [param]);
     return result;

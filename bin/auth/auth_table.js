@@ -1,8 +1,8 @@
 const config = require('../infrastructure/configs/global_config');
 
 class Table {
-    constructor (noMeja, password) {
-        this.noMeja = noMeja;
+    constructor (no_meja, password) {
+        this.no_meja = no_meja;
         this.password = password;
     }
 
@@ -11,14 +11,14 @@ class Table {
     }
 }
 
-module.exports.findTable = (noMeja, cb) => {
+module.exports.findTable = (no_meja, cb) => {
   const tableDatas = config.get('/authTable');
   const tableData = tableDatas.map((value) => {
-        if (value.noMeja === noMeja) {
+        if (value.no_meja === no_meja) {
             return value;
         }
         return '';
     });
-    const table = new Table(tableData[0].noMeja, tableData[0].password);
+    const table = new Table(tableData[0].no_meja, tableData[0].password);
     cb(table)
   }

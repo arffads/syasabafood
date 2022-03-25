@@ -8,6 +8,13 @@ const listOrder = async (param) => {
   return result;
 };
 
+const listProduct = async(param) => {
+  const db = new Mysql(configs.get('/mysqlConfig'));
+  const query = `SELECT * FROM products WHERE products.id`;
+  const result = await db.query(query);
+  return result;
+}
+
 const findOrderByTable = async (param) => {
   const {  } = param;
   const db = new Mysql(configs.get('/mysqlConfig'));
@@ -27,5 +34,6 @@ const findOrderByDate = async (param) => {
 module.exports = {
   listOrder,
   findOrderByDate,
-  findOrderByTable
+  findOrderByTable,
+  listProduct
 };

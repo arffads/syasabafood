@@ -20,7 +20,7 @@ const updateUser = async (payload) => {
 
 const deleteUser = async(payload) => {
   const user = new User();
-  const postCommand = async payload => user.register(payload);
+  const postCommand = async payload => user.deleteUser(payload);
   return postCommand(payload);
 };
 

@@ -3,7 +3,7 @@ const configs = require('../../../../../infrastructure/configs/global_config');
 
 const findTable = async (param) => {
     const db = new Mysql(configs.get('/mysqlConfig'));
-    const query = `SELECT * FROM users WHERE noMeja = "${param.noMeja}" LIMIT 1`;
+    const query = `SELECT * FROM food_tables WHERE no_meja LIMIT 1`;
     const result = await db.query(query);
     return result;
 };

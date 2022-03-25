@@ -33,6 +33,7 @@ const authTable = async (req, res) => {
 const addTable = async (req, res) => {
   const userId = await getUser(req, res);
   const payload = { ...req.body, userId: userId.id };
+  console.log(payload,"22222222");
   const validatePayload = validator.isValidPayload(payload, commandModel.addTable);
   const postRequest = async (result) =>{
     if (result.err) {
@@ -65,8 +66,26 @@ const listTable = async (req, res) => {
   sendResponse(await postRequest(validatePayload));
 };
 
+const deleteTable = async (req, res) => {
+  const payload = req.params;
+  const validatePayload = validator.isValidPayload(payload, commandModel.deleteTable);
+  const postRequest = async (result) => {
+    if (result.err) {
+      return result;
+    }
+    return await commandHandler.deleteTable(payload);
+  };
+  const sendResponse = async (result) => {
+    (result.err)
+      ? wrapper.response(res, 'fail', result.err, result.message)
+      : wrapper.response(res, 'success', result, result.message);
+  };
+  sendResponse(await postRequest(validatePayload));
+};
+
 module.exports = {
   authTable,
   addTable,
-  listTable
+  listTable,
+  deleteTable
 };

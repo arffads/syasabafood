@@ -3,7 +3,8 @@ const Order = require('./domain');
 const insertOrder = async (payload) => {
   const order = new Order();
   const postCommand = async payload => order.insertOrder(payload);
-  return postCommand(payload)
+  return postCommand(payload);
+
 };
 
 const deleteOrder = async (payload) => {

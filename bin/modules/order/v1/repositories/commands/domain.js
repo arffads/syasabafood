@@ -8,10 +8,12 @@ moment.tz('Asia/Jakarta');
 class Order {
   async insertOrder (payload) {
     payload = moment().format('YYYY-MM-DD HH:mm:ss');
-    // const insertOrder = await command.insertOrder(payload);
+    const insertOrder = await command.insertOrder(payload);
     if (insertOrder.err) {
-      // return wrapper.error('err', insertOrder.message, insertOrder.code);
+      return wrapper.error('err', insertOrder.message, insertOrder.code);
     }
+    const insertId = { ...insertOrder.data };
+    payload.insertId = insertId.insertId;
     return wrapper.data('', 'Succes Input', 201);
   }
 

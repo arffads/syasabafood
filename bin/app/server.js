@@ -43,21 +43,25 @@ function AppServer() {
     this.server.post('/users/v1/auth', basicAuth.isAuthenticated, userHandler.authenticate);
     this.server.post('/users/v1/register', userHandler.register);
     this.server.get('/users/v1', jwtAuth.verifyToken, userHandler.getUser);
-    
-    // ROUTE products
+    this.server.del('/users/v1/:id', jwtAuth.verifyToken, userHandler.deleteUser);
+
+    // ROUTE PRODUCTS
     this.server.post('/products/v1', jwtAuth.verifyToken, productHandler.addProduct);
     this.server.get('/products/v1', jwtAuth.verifyToken, productHandler.listProduct);
     this.server.put('/products/v1/:id', jwtAuth.verifyToken, productHandler.updateProduct);
     this.server.del('/products/v1/:id', jwtAuth.verifyToken, productHandler.deleteProduct);
 
-    // ROUTE TABLE
+    // ROUTE TABLE ADMIN
     this.server.post('/table/v1/addTable', jwtAuth.verifyToken, tableHandler.addTable);
     this.server.get('/table/v1', jwtAuth.verifyToken, tableHandler.listTable);
+    this.server.del('/table/v1/:id', jwtAuth.verifyToken, tableHandler.deleteTable);
 
-    this.server.get('/table/v1/auth', jwtAuthTable.verifyToken, tableHandler.authTable);
+    // ROUTE TABLE USER
+    this.server.post('/table/v1/auth', basicAuth.isAuthenticated, tableHandler.authTable);
+    this.server.get('/table/v1/products', jwtAuthTable.verifyToken, productHandler.listProduct);
 
     //ROUTE ORDERS
-    // this.server.post('order/v1', jwtAuth.verifyToken, orderHandler);
+    this.server.post('/order/v1/addOrder', jwtAuthTable.verifyToken, orderHandler.addOrder);
     // this.server.get('order/v1', jwtAuth.verifyToken, orderHandler);
     // this.server.put('order/v1', jwtAuth.verifyToken, orderHandler);
 
