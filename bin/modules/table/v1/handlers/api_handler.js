@@ -5,7 +5,7 @@ const queryHandler = require('../repositories/queries/query_handler');
 const queryModel = require('../repositories/queries/query_model');
 const validator = require('../utils/validator');
 const jwtAuth = require('../../../../auth/jwt_auth_helper');
-// const { async } = require('validate.js');
+
 
 const getUser = async (req, res) => {
   const user = await jwtAuth.getUser(req, res);
@@ -33,7 +33,6 @@ const authTable = async (req, res) => {
 const addTable = async (req, res) => {
   const userId = await getUser(req, res);
   const payload = { ...req.body, userId: userId.id };
-  console.log(payload,"22222222");
   const validatePayload = validator.isValidPayload(payload, commandModel.addTable);
   const postRequest = async (result) =>{
     if (result.err) {

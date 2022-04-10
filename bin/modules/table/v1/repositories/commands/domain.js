@@ -25,7 +25,8 @@ class Table {
         const validPassword = await bcrypt.compare(payload.password, findTable[0].password);
         if (validPassword) {
             const dataResponse = {
-                no_meja: findTable[0].no_meja
+                no_meja: findTable[0].no_meja,
+                tableId: findTable[0].id
             };
             const accesToken = await jwtAuth.generateToken(dataResponse, expiredToken.accesToken);
             dataResponse.accesToken = accesToken;

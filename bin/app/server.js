@@ -7,6 +7,7 @@ const userHandler = require('../modules/user/v1/handlers/api_handler');
 const productHandler = require('../modules/products/v1/handlers/api_handler');
 const tableHandler = require('../modules/table/v1/handlers/api_handler');
 const orderHandler = require('../modules/order/v1/handlers/api_handler');
+const invoiceHandler = require('../modules/invoice/v1/handlers/api_handler');
 const jwtAuth = require('../auth/jwt_auth_helper');
 const jwtAuthTable = require('../auth/jwt_auth_table');
 const basicAuth = require('../auth/basic_auth_helper');
@@ -32,20 +33,18 @@ function AppServer() {
 
     this.server.pre(corsConfig.preflight);
     this.server.use(corsConfig.actual);
-
     this.server.use(basicAuth.init());
-
     this.server.get('/', (req, res) => {
         wrapper.response(res, 'succes', wrapper.data('Index'), 'This service is running is running properly');
     });
 
-    // USER ROUTE
+    // ADMIN ROUTE
     this.server.post('/users/v1/auth', basicAuth.isAuthenticated, userHandler.authenticate);
     this.server.post('/users/v1/register', userHandler.register);
     this.server.get('/users/v1', jwtAuth.verifyToken, userHandler.getUser);
     this.server.del('/users/v1/:id', jwtAuth.verifyToken, userHandler.deleteUser);
 
-    // ROUTE PRODUCTS
+    // PRODUCTS ROUTE
     this.server.post('/products/v1', jwtAuth.verifyToken, productHandler.addProduct);
     this.server.get('/products/v1', jwtAuth.verifyToken, productHandler.listProduct);
     this.server.put('/products/v1/:id', jwtAuth.verifyToken, productHandler.updateProduct);
@@ -55,16 +54,20 @@ function AppServer() {
     this.server.post('/table/v1/addTable', jwtAuth.verifyToken, tableHandler.addTable);
     this.server.get('/table/v1', jwtAuth.verifyToken, tableHandler.listTable);
     this.server.del('/table/v1/:id', jwtAuth.verifyToken, tableHandler.deleteTable);
-
+    
     // ROUTE TABLE USER
     this.server.post('/table/v1/auth', basicAuth.isAuthenticated, tableHandler.authTable);
     this.server.get('/table/v1/products', jwtAuthTable.verifyToken, productHandler.listProduct);
 
-    //ROUTE ORDERS
+    //ROUTE ORDER CUSTOMER
     this.server.post('/order/v1/addOrder', jwtAuthTable.verifyToken, orderHandler.addOrder);
-    // this.server.get('order/v1', jwtAuth.verifyToken, orderHandler);
-    // this.server.put('order/v1', jwtAuth.verifyToken, orderHandler);
+    
+    //ROUTE ORDER ADMIN FOR GET, EDIT, AND DELETE ORDERS
+    this.server.del('order/v1/:id', jwtAuth.verifyToken, orderHandler.deleteOrder);
+    this.server.put('order/v1/:id', jwtAuth.verifyToken, orderHandler.updateOrder);
+    // this.server.get('')
 
+    this.server.post('/invoice/v1', jwtAuthTable.verifyToken, invoiceHandler.insertInvoice);
     mysqlConnectionPooling.init();
 }; 
 

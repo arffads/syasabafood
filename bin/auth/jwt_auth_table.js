@@ -42,7 +42,7 @@ const verifyToken = async (req, res, next) => {
 
   const token = getToken(req.headers);
   if (!token) {
-    return wrapper.response(res, 'fail', result, 'Invalid token blogggg!', ERROR.FORBIDDEN);
+    return wrapper.response(res, 'fail', result, 'Invalid token!', ERROR.FORBIDDEN);
   }
   let decodedToken;
   try {
@@ -56,9 +56,9 @@ const verifyToken = async (req, res, next) => {
   const no_meja = decodedToken.sub;
   const findTable = await tableQuery.findTable({ no_meja });
   if (findTable.err) {
-    return wrapper.response(res, 'fail', result, 'Invalid token Autissss!', ERROR.FORBIDDEN);
+    return wrapper.response(res, 'fail', result, 'Invalid token!', ERROR.FORBIDDEN);
   } else if (findTable.data.length === 0) {
-    return wrapper.response(res, 'fail', result, 'Invalid token tlolllll!', ERROR.FORBIDDEN);
+    return wrapper.response(res, 'fail', result, 'Invalid token!', ERROR.FORBIDDEN);
   }
   next();
 };
@@ -76,7 +76,7 @@ const getTable = async (req, res) => {
 
   const token = getToken(req.headers);
   if (!token) {
-    return wrapper.response(res, 'fail', result, 'Invalid token peaaaaa!', ERROR.FORBIDDEN);
+    return wrapper.response(res, 'fail', result, 'Invalid token!', ERROR.FORBIDDEN);
   }
   let decodedToken;
   try {

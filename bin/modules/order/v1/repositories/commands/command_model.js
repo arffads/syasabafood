@@ -1,30 +1,30 @@
 const joi = require('joi');
 
-const insertOrder = joi.object({
-  tableId: joi.number().required(),
-  no_meja: joi.number().required(),
-  namaProduct: joi.string().required(),
-  categoryProduct: joi.number().required(),
+const insertOrder = joi.array().items(joi.object().keys({
+  id:joi.string().optional(),
+  tableId: joi.number().optional(),
+  noMeja: joi.number().optional(),
   qty: joi.number().required(),
+  note: joi.string().optional(),
   customerName: joi.string().required(),
   customerContact: joi.string().optional(),
   productId: joi.number().required()
-
-});
-
-// insertOrder = joi.array().ordered(insertOrder);
+}));
 
 const deleteOrder = joi.object({
-  token: joi.number().required()
+  id: joi.number().required()
 });
 
-const updateOrder = joi.object({
+const updateOrder = joi.array().items(joi.object().keys({
+  id:joi.string().optional(),
+  tableId: joi.number().optional(),
+  noMeja: joi.number().optional(),
+  qty: joi.number().required(),
+  note: joi.string().optional(),
   customerName: joi.string().required(),
   customerContact: joi.string().optional(),
-  product: joi.string().required(),
-  qty: joi.number().required(),
-  note: joi.string().optional()
-});
+  productId: joi.number().required()
+}));
 
 module.exports = {
   insertOrder,

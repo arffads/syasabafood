@@ -19,7 +19,12 @@ const error = (err, description, code = 500) => ({
 
 const response = (res, type, result, message = '', code = 200) => {
     let status = true;
-    let { data } = result;
+    let data;
+    if(result && result.hasOwnProperty('data')) {
+      data = result.data
+    } else {
+      data = result
+    }
     if(type === 'fail') {
         status = false;
         data = '';
