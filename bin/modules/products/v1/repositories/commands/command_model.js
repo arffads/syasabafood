@@ -14,6 +14,7 @@ const deleteProduct = joi.object({
 });
 
 const updateProduct = joi.object({
+  id: joi.number().required(),
   namaProduk: joi.string().required(),
   hargaProduk: joi.number().required(),
   disount: joi.number().optional(),

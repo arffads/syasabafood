@@ -10,13 +10,25 @@ class Order {
   async insertOrder (payload) {
     payload = payload.map(item => {
       return {
-        ...item, createAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`,
+        ...item, 
+        createAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`,
         updateAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`
       }
     })
     const insertOrder = await command.insertOrder(payload);
-    if (insertOrder.err) {
-      return wrapper.error('err', insertOrder.message, insertOrder.code);
+    console.log(insertOrder, ' qweqweq')
+    const invoicePayload = {
+      orderId: insertOrder.data.insertId,
+      tableId: payload[0].tableId,
+      createAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`,
+      updateAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`
+    }
+    // const commandI = await invoiceCommand.insertInvoice(payload);
+    const insertInvoice = await invoiceCommand.insertInvoice(invoicePayload);
+    if (insertOrder.err && insertInvoice.err) {
+      return wrapper.error(
+        'err', insertOrder.message && insertInvoice.message, insertOrder.code && insertInvoice.code
+        );
     }
     return wrapper.data('', 'Succes Input', 201);
   }

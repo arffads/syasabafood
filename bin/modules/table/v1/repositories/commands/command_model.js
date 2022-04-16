@@ -6,7 +6,7 @@ const authTable = joi.object({
 });
 
 const addTable = joi.object({
-  no_meja: joi.number().required(),
+  noMeja: joi.number().required(),
   userId: joi.number().required(),
   password: joi.string().required()
 });

@@ -59,15 +59,14 @@ function AppServer() {
     this.server.post('/table/v1/auth', basicAuth.isAuthenticated, tableHandler.authTable);
     this.server.get('/table/v1/products', jwtAuthTable.verifyToken, productHandler.listProduct);
 
-    //ROUTE ORDER CUSTOMER
+    //ROUTE ORDER 
     this.server.post('/order/v1/addOrder', jwtAuthTable.verifyToken, orderHandler.addOrder);
-    
-    //ROUTE ORDER ADMIN FOR GET, EDIT, AND DELETE ORDERS
-    this.server.del('order/v1/:id', jwtAuth.verifyToken, orderHandler.deleteOrder);
-    this.server.put('order/v1/:id', jwtAuth.verifyToken, orderHandler.updateOrder);
+    this.server.del('/order/v1/:id', jwtAuth.verifyToken, orderHandler.deleteOrder);
+    this.server.put('/order/v1/:id', jwtAuth.verifyToken, orderHandler.updateOrder);
     // this.server.get('')
 
-    this.server.post('/invoice/v1', jwtAuthTable.verifyToken, invoiceHandler.insertInvoice);
+    this.server.get('/invoice/v1', jwtAuthTable.verifyToken, invoiceHandler.listInvoice);
+    this.server.get('/invoice/v1/:tableId', jwtAuthTable.verifyToken, invoiceHandler.listInvoiceByTable);
     mysqlConnectionPooling.init();
 }; 
 

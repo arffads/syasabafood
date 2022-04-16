@@ -10,7 +10,7 @@ const findTable = async (param) => {
 
 const listTable = async () => {
   const db = new Mysql(configs.get('/mysqlConfig'));
-  const query = 'SELECT * FROM tables';
+  const query = 'SELECT id, no_meja FROM food_tables';
   const result = await db.query(query);
   return result;
 };

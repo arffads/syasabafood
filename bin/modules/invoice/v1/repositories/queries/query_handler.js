@@ -6,6 +6,13 @@ const listInvoice = async (payload) => {
   return postCommand(payload);
 };
 
+const listInvoiceByTable = async (payload) => {
+  const invoice = new Invoice();
+  const postCommand = async payload => invoice.listInvoiceByTable(payload);;
+  return postCommand(payload);
+};
+
 module.exports = {
-  listInvoice
+  listInvoice,
+  listInvoiceByTable
 };
