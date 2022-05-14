@@ -12,7 +12,8 @@ const insertOrder = async (param) => {
     const temp = `${res.map(es => "'" + es + "'")}`
     s = s + `(${temp})` +( data.length - 1 === index ? "" :",")
   })
-  const query = `INSERT INTO orders (id, tableId, no_meja, note, qty, customerName, customerContact,product_id, create_at, update_at) VALUES ${s}`;
+  console.log("dataaaa", s);
+  const query = `INSERT INTO orders (id, tableId, no_meja, note, qty, customerName, customerContact,product_id, price, create_at, update_at) VALUES ${s}`;
   const result = await db.query(query);
   return result;
 };
@@ -21,7 +22,7 @@ const deleteOrder = async (param) => {
   const { id } = param;
   const db = new Mysql(configs.get('/mysqlConfig'));
   const query = `DELETE FROM orders WHERE orders.id = ${id}`;
-  const result = await db.query(query);                                                                            
+  const result = await db.query(query);
   return result;
 };
 

@@ -4,12 +4,6 @@ const queryModel = require('../repositories/queries/query_model');
 const validator = require('../utils/validator');
 const jwtAuth = require('../../../../auth/jwt_auth_table');
 
-
-const getTable = async (req, res) => {
-  const table = await jwtAuth.getTable(req, res);
-  return table;
-};
-
 const listInvoice = async (req, res) => {
   const payload = req.body;
   const validatePayload = validator.isValidPayload(payload, queryModel.listInvoice);
@@ -17,7 +11,7 @@ const listInvoice = async (req, res) => {
     if (result.err) {
       return result;
     }
-    return await queryHandler.listInvoice(result.data);
+    return await queryHandler.listInvoiceByTable(result.data);
   };
   const sendResponse = async (result) => {
     (result.err)
@@ -31,7 +25,6 @@ const listInvoiceByTable = async (req, res) => {
   const payload = {
     ...req.params
   };
-  console.log(payload, 'ini payload bukan reki');
   const validatePayload = validator.isValidPayload(payload, queryModel.listInvoiceByTable);
   const postRequest = async (result) => {
     if (result.err) {

@@ -14,20 +14,26 @@ class Order {
         createAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`,
         updateAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`
       }
+    
     })
     const insertOrder = await command.insertOrder(payload);
-    console.log(insertOrder, ' qweqweq')
+    
+    const totalPrice = payload.reduce((acc, curr) => {
+      const x = curr.price * curr.qty; 
+      return acc + x
+    }, 0)
+    console.log("TOTAL PRICE", totalPrice);
     const invoicePayload = {
       orderId: insertOrder.data.insertId,
       tableId: payload[0].tableId,
+      totalPrice: totalPrice,
       createAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`,
       updateAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`
     }
-    // const commandI = await invoiceCommand.insertInvoice(payload);
     const insertInvoice = await invoiceCommand.insertInvoice(invoicePayload);
-    if (insertOrder.err && insertInvoice.err) {
+    if (insertOrder.err) {
       return wrapper.error(
-        'err', insertOrder.message && insertInvoice.message, insertOrder.code && insertInvoice.code
+        'err', insertOrder.message, insertOrder.code 
         );
     }
     return wrapper.data('', 'Succes Input', 201);

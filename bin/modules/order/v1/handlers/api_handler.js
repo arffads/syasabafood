@@ -7,7 +7,6 @@ const queryProduct = require('../../../products/v1/repositories/queries/query');
 const validator = require('../utils/validator');
 const jwtAuthTable = require('../../../../auth/jwt_auth_table');
 const jwtAuth = require('../../../../auth/jwt_auth_helper');
-const { async, result } = require('validate.js');
 
 
 const getTable = async (req, res) => {
@@ -25,7 +24,7 @@ const addOrder = async (req, res) => {
   const tableId = await getTable(req, res);
   const payload = req.body.map(item => {
     return {
-      id:'null',
+      id:"null",
       tableId: tableId.id, 
       noMeja:tableId.no_meja,
       ...item,

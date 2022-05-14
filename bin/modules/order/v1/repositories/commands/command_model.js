@@ -5,6 +5,7 @@ const insertOrder = joi.array().items(joi.object().keys({
   tableId: joi.number().optional(),
   noMeja: joi.number().optional(),
   qty: joi.number().required(),
+  price: joi.number().required(),
   note: joi.string().optional(),
   customerName: joi.string().required(),
   customerContact: joi.string().optional(),

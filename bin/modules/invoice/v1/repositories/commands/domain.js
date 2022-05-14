@@ -6,20 +6,6 @@ moment.tz('Asia/Jakarta');
 
 
 class Invoice {
-  async insertInvoice (payload) {
-    payload = payload.map(item => {
-      return {
-        ...item, createAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`,
-        updateAt : `${moment().format('YYYY-MM-DD HH:mm:ss').toString()}`
-      }
-    })
-    const insertInvoice = await command.insertInvoice(payload);
-    if (insertInvoice.err) {
-      return wrapper.error('err', insertInvoice.message, insertInvoice.code);
-    }
-    return wrapper.data('', 'Succes Input', 201);
-  }
-
   async deleteInvoice (payload) {
     const deleteInvoice = await command.deleteInvoice(payload);
     if (deleteInvoice.err) {
