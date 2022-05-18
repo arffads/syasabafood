@@ -49,6 +49,7 @@ function AppServer() {
     this.server.get('/products/v1', jwtAuth.verifyToken, productHandler.listProduct);
     this.server.put('/products/v1/:id', jwtAuth.verifyToken, productHandler.updateProduct);
     this.server.del('/products/v1/:id', jwtAuth.verifyToken, productHandler.deleteProduct);
+    this.server.get('/products/v1/category', jwtAuthTable.verifyToken, productHandler.findingProduct)
 
     // ROUTE TABLE ADMIN
     this.server.post('/table/v1/addTable', jwtAuth.verifyToken, tableHandler.addTable);

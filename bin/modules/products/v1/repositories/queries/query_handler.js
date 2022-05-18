@@ -6,6 +6,13 @@ const listProduct = async (payload) => {
   return postCommand(payload);
 };
 
+const findingProduct = async(payload, res) => {
+  const product = new Product();
+  const postCommand = async payload => product.findingProduct(payload, res);
+  return postCommand(payload);
+}
+
 module.exports = {
-  listProduct
+  listProduct,
+  findingProduct
 };

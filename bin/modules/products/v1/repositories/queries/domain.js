@@ -12,6 +12,26 @@ class Product {
     listProduct = listProduct.data.map(v => Object.assign({}, v));
     return wrapper.data(listProduct, 'Succes', 201);
   }
+
+  async findingProduct (payload) {
+    let {categoryId, data} = payload;    
+    if (data === 'products') {
+      if(categoryId) {
+        let findProductByCategory = await query.findProductByCategory(categoryId);
+        console.log('1231231231', findProductByCategory)
+
+        if (findProductByCategory.err) {
+          return wrapper.error('err', findProductByCategory.message, findProductByCategory.code);
+        } else if (findProductByCategory.data.length === 0) {
+          return wrapper.data([], 'data Not Found', 404);
+        }
+        findProductByCategory = findProductByCategory.data.map(v => Object.assign({}, v));
+        return wrapper.data(findProductByCategory, 'Succes', 201);
+        // console.log('1231231231', datas)
+
+      }
+    }
+  }
 }
 
 module.exports = Product;

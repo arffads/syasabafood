@@ -24,10 +24,10 @@ const findProductByDate = async (param) => {
   return result;
 };
 
-const findProductByCategory = async (param) => {
-  const { categoryId } = param;
+const findProductByCategory = async (categoryId) => {
+  // const { categoryId } = param;
   const db = new Mysql(configs.get('/mysqlConfig'));
-  const query = `SELECT * FROM products WHERE products.category_id = '${categoryId}' ORDER BY products.create_at ASC`;
+  const query = `SELECT products.*, categories.name as categoryName FROM products LEFT OUTER JOIN categories ON products.category_id = categories.id WHERE products.category_id = '${categoryId}'`;
   const result = db.query(query);
   return result;
 };

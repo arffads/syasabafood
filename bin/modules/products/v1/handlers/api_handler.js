@@ -48,6 +48,21 @@ const listProduct = async (req, res) => {
   sendResponse(await postRequest(validatePayload));
 };
 
+const findingProduct = async (req, res) => {
+  const payload = req.query;
+  const validatePayload =  validator.isValidPayload(payload, queryModel.findingProduct);
+  const postRequest = async (result) => {
+    if(result.err) {
+      return result;
+    }
+    return await queryHandler.findingProduct(result.data, res);
+  };
+  const sendResponse = async (result) => {
+    return result;
+  };
+  sendResponse(await postRequest(validatePayload));
+}
+
 const deleteProduct = async (req, res) => {
   const payload = req.params;
   const validatePayload = validator.isValidPayload(payload, commandModel.deleteProduct);
@@ -92,5 +107,6 @@ module.exports = {
   addProduct,
   listProduct,
   deleteProduct,
-  updateProduct
+  updateProduct,
+  findingProduct
 };
