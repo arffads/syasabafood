@@ -6,7 +6,8 @@ const addProduct = joi.object({
   disount: joi.number().optional(),
   isActive: joi.number().required(),
   categoryId: joi.number().required(),
-  userId: joi.number().required()
+  userId: joi.number().required(),
+  type: joi.string().required()
 });
 
 const deleteProduct = joi.object({
@@ -20,7 +21,8 @@ const updateProduct = joi.object({
   disount: joi.number().optional(),
   isActive: joi.number().required(),
   categoryId: joi.number().required(),
-  userId: joi.number().required()
+  userId: joi.number().required(),
+  type: joi.string().required()
 });
 
 module.exports = {
