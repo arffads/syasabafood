@@ -12,7 +12,6 @@ const listProduct = async (params) => {
   const db = new Mysql(configs.get('/mysqlConfig'));
   const query = `SELECT products.*, categories.name as category FROM products LEFT JOIN categories ON products.category_id = categories.id`;
   const result = await db.query(query);
-  console.log("LEFT JOIN", result);
   return result;
 };
 
@@ -25,7 +24,6 @@ const findProductByDate = async (param) => {
 };
 
 const findProductByCategory = async (categoryId) => {
-  // const { categoryId } = param;
   const db = new Mysql(configs.get('/mysqlConfig'));
   const query = `SELECT products.*, categories.name as categoryName FROM products LEFT OUTER JOIN categories ON products.category_id = categories.id WHERE products.category_id = '${categoryId}'`;
   const result = db.query(query);

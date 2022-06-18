@@ -3,6 +3,7 @@ const joi = require('joi');
 const addProduct = joi.object({
   namaProduk: joi.string().required(),
   hargaProduk: joi.number().required(),
+  image: joi.any().required(),
   disount: joi.number().optional(),
   isActive: joi.number().required(),
   categoryId: joi.number().required(),

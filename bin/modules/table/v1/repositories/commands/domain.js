@@ -43,7 +43,6 @@ class Table {
               if (insertOneTable.err) {
                 return wrapper.error('err', insertOneTable.message, insertOneTable.code);
               } else {
-                console.log(insertOneTable,'qwewrqrqsadadasd');
                 const qrCodeText = `http://localhost:8080/${payload.noMeja}`;
                 const src = `./bin/public/images/${payload.noMeja}.png`;
                 const stream = fs.createWriteStream(src);
@@ -52,7 +51,7 @@ class Table {
                 return wrapper.data('', 'Succes Input', 201);
           } 
           catch(error) {
-            console.log(error,'====');
+            return wrapper.error('err');
           }
   }
 
@@ -66,3 +65,4 @@ class Table {
 }
 
 module.exports = Table;
+

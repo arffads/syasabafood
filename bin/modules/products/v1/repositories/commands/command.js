@@ -2,9 +2,9 @@ const Mysql = require('../../../../../infrastructure/database/mysql/db');
 const configs = require('../../../../../infrastructure/configs/global_config');
 
 const insertOneProduct = async (param) => {
-  const { namaProduk, hargaProduk, discount = 0, isActive, type ,createAt, updateAt, categoryId, userId } = param;
+  const { namaProduk, hargaProduk, discount = 0, isActive, type ,createAt, updateAt, categoryId, userId, image } = param;
   const db = new Mysql(configs.get('/mysqlConfig'));
-  const query = `INSERT INTO products (id, name, price, discount, isActive, type, create_at, update_at, category_id, user_id) VALUES ('NULL', '${namaProduk}', '${hargaProduk}', '${discount}', '${isActive}', '$${type}','${createAt}', '${updateAt}','${categoryId}', '${userId}')`;
+  const query = `INSERT INTO products (id, name, price, discount, isActive, type, create_at, update_at, category_id, user_id, image) VALUES ('NULL', '${namaProduk}', '${hargaProduk}', '${discount}', '${isActive}', '${type}','${createAt}', '${updateAt}','${categoryId}', '${userId}', '${image}')`;
   const result = await db.query(query);
   return result;
 };

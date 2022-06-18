@@ -5,8 +5,7 @@ const queryHandler = require('../repositories/queries/query_handler');
 const queryModel = require('../repositories/queries/query_model');
 const validator = require('../utils/validator');
 const jwtAuth = require('../../../../auth/jwt_auth_helper');
-
-
+const fs = require('fs');
 
 const getUser = async (req, res) => {
   const user = await jwtAuth.getUser(req, res);
@@ -14,21 +13,33 @@ const getUser = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  const userId = await getUser(req, res);
-  const payload = { ...req.body, userId: userId.id };
-  const validatePayload = validator.isValidPayload(payload, commandModel.addProduct);
-  const postRequest = async (result) => {
-    if (result.err) {
-      return result;
-    }
-    return await commandHandler.addProduct(result.data);
-  };
-  const sendResponse = async (result) => {
-    (result.err)
-    ? wrapper.response(res, 'fail', result.err, result.message)
-    : wrapper.response(res, 'succes', result, result.message, result.code);
-  };
-  sendResponse(await postRequest(validatePayload));
+      const userId = await getUser(req, res);
+       if(req.files.hasOwnProperty("image")) {
+          const x = await fs.rename(
+            req.files["image"].path,
+            `./bin/public/product/${req.files["image"].name}`,
+            (err) => {
+              if (err) throw err;
+              console.log('Rename complete!');}
+          );
+           console.log(x, "qwerty");
+          // fs.unlinkSync(req.files["image"].path);
+        }
+
+      const payload = { ...req.body, userId: userId.id, image: req.files["image"].name };
+      const validatePayload = validator.isValidPayload(payload, commandModel.addProduct);
+      const postRequest = async (result) => {
+        if (result.err) {
+          return result;
+        }
+        return await commandHandler.addProduct(result.data);
+      };
+      const sendResponse = async (result) => {
+        (result.err)
+        ? wrapper.response(res, 'fail', result.err, result.message)
+        : wrapper.response(res, 'succes', result, result.message, result.code);
+      };
+      sendResponse(await postRequest(validatePayload));
 };
 
 const listProduct = async (req, res) => {
@@ -100,7 +111,6 @@ const updateProduct = async (req, res) => {
       : wrapper.response(res, 'success', result, result.message, result.code);
   };
   sendResponse(await postRequest(validatePayload));
-  console.log(payload);
 };
 
 module.exports = {
@@ -109,4 +119,4 @@ module.exports = {
   deleteProduct,
   updateProduct,
   findingProduct
-};
+}
