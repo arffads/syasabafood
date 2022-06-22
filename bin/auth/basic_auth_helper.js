@@ -21,7 +21,6 @@ passport.use(new BasicStrategy((no_meja, password, cb) => {
             return cb(null, false);
         }
         if (table.isValidTable(password)){
-            console.log(table,'dfafaddf');
             return cb(null, false);
         }
         

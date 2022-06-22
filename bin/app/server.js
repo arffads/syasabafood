@@ -46,7 +46,7 @@ function AppServer() {
 
     // PRODUCTS ROUTE
     this.server.post('/products/v1', jwtAuth.verifyToken, productHandler.addProduct);
-    this.server.get('/products/v1', jwtAuth.verifyToken, productHandler.listProduct);
+    this.server.get('/products/v1', productHandler.listProduct);
     this.server.put('/products/v1/:id', jwtAuth.verifyToken, productHandler.updateProduct);
     this.server.del('/products/v1/:id', jwtAuth.verifyToken, productHandler.deleteProduct);
     this.server.get('/products/v1/category', jwtAuthTable.verifyToken, productHandler.findingProduct)

@@ -19,10 +19,9 @@ class Order {
     const insertOrder = await command.insertOrder(payload);
     
     const totalPrice = payload.reduce((acc, curr) => {
-      const x = curr.price * curr.qty; 
-      return acc + x
+      const calcProd = curr.price * curr.qty; 
+      return acc + calcProd
     }, 0)
-    console.log("TOTAL PRICE", totalPrice);
     const invoicePayload = {
       orderId: insertOrder.data.insertId,
       tableId: payload[0].tableId,

@@ -18,7 +18,6 @@ class Product {
     if (data === 'products') {
       if(categoryId) {
         let findProductByCategory = await query.findProductByCategory(categoryId);
-        console.log('1231231231', findProductByCategory)
 
         if (findProductByCategory.err) {
           return wrapper.error('err', findProductByCategory.message, findProductByCategory.code);
@@ -27,7 +26,6 @@ class Product {
         }
         findProductByCategory = findProductByCategory.data.map(v => Object.assign({}, v));
         return wrapper.data(findProductByCategory, 'Succes', 201);
-        // console.log('1231231231', datas)
 
       }
     }

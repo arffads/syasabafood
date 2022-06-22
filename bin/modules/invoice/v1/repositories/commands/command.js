@@ -5,7 +5,6 @@ const insertInvoice = async (param) => {
   const { orderId, tableId, createAt, updateAt, totalPrice } = param;
   const db = new Mysql(configs.get('/mysqlConfig'));
   const query = `INSERT INTO invoice (orderId, tableId, createAt, updateAt, totalPrice) VALUES ('${orderId}', '${tableId}', '${createAt}', '${updateAt}', '${totalPrice}')`;
-  console.log("RESULT =>>>", query);
   const result = await db.query(query);
   return result;
 };

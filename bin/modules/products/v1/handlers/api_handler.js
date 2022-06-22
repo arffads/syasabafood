@@ -15,15 +15,13 @@ const getUser = async (req, res) => {
 const addProduct = async (req, res) => {
       const userId = await getUser(req, res);
        if(req.files.hasOwnProperty("image")) {
-          const x = await fs.rename(
+          const uploadImage = await fs.rename(
             req.files["image"].path,
             `./bin/public/product/${req.files["image"].name}`,
             (err) => {
               if (err) throw err;
-              console.log('Rename complete!');}
+              }
           );
-           console.log(x, "qwerty");
-          // fs.unlinkSync(req.files["image"].path);
         }
 
       const payload = { ...req.body, userId: userId.id, image: req.files["image"].name };

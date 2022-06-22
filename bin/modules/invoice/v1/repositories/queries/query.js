@@ -6,7 +6,6 @@ const listInvoice = async (param) => {
   const query = `SELECT invoice.*, products.name as namaProduct, products.price as hargaProduct, orders.tableId as tableId, 
   orders.customerName as cutomer, orders.qty as quantity,orders.product_id as productId FROM invoice 
   LEFT JOIN orders ON invoice.orderId = orders.id LEFT JOIN products ON invoice.orderId = products.id`;
-  console.log(query, 'query ni boss')
   const result = await db.query(query);
   return result;
 };
