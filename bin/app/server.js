@@ -38,6 +38,10 @@ function AppServer() {
         wrapper.response(res, 'succes', wrapper.data('Index'), 'This service is running is running properly');
     });
 
+    this.server.get('/public/*', // don't forget the `/*`
+        restify.plugins.serveStaticFiles('./bin/public/product')
+    ); // GET /public/index.html -> ./doc/v1/index.html file
+
     // ADMIN ROUTE
     this.server.post('/users/v1/auth', basicAuth.isAuthenticated, userHandler.authenticate);
     this.server.post('/users/v1/register', userHandler.register);
