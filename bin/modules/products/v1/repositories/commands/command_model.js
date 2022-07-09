@@ -5,7 +5,7 @@ const addProduct = joi.object({
   hargaProduk: joi.number().required(),
   image: joi.any().required(),
   disount: joi.number().optional(),
-  isActive: joi.number().required(),
+  qty: joi.number().required(),
   categoryId: joi.number().required(),
   userId: joi.number().required(),
   type: joi.string().required()
@@ -20,7 +20,7 @@ const updateProduct = joi.object({
   namaProduk: joi.string().required(),
   hargaProduk: joi.number().required(),
   disount: joi.number().optional(),
-  isActive: joi.number().required(),
+  qty: joi.number().required(),
   categoryId: joi.number().required(),
   userId: joi.number().required(),
   type: joi.string().required()

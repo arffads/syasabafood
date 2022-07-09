@@ -56,7 +56,7 @@ function AppServer() {
     this.server.get('/products/v1/category', jwtAuthTable.verifyToken, productHandler.findingProduct)
 
     // ROUTE TABLE ADMIN
-    this.server.post('/table/v1/addTable', jwtAuth.verifyToken, tableHandler.addTable);
+    this.server.post('/table/v1/add', jwtAuth.verifyToken, tableHandler.addTable);
     this.server.get('/table/v1', jwtAuth.verifyToken, tableHandler.listTable);
     this.server.del('/table/v1/:id', jwtAuth.verifyToken, tableHandler.deleteTable);
     
@@ -65,7 +65,7 @@ function AppServer() {
     this.server.get('/table/v1/products', jwtAuthTable.verifyToken, productHandler.listProduct);
 
     //ROUTE ORDER 
-    this.server.post('/order/v1/addOrder', jwtAuthTable.verifyToken, orderHandler.addOrder);
+    this.server.post('/order/v1/add', jwtAuthTable.verifyToken, orderHandler.addOrder);
     this.server.del('/order/v1/:id', jwtAuth.verifyToken, orderHandler.deleteOrder);
     this.server.put('/order/v1/:id', jwtAuth.verifyToken, orderHandler.updateOrder);
     // this.server.get('')

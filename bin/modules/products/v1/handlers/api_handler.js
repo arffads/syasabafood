@@ -12,6 +12,7 @@ const getUser = async (req, res) => {
   return user;
 };
 
+
 const addProduct = async (req, res) => {
       const userId = await getUser(req, res);
        if(req.files.hasOwnProperty("image")) {

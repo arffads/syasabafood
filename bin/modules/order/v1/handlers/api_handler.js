@@ -19,7 +19,6 @@ const getUser = async (req, res) => {
   return user;
 };
 
-
 const addOrder = async (req, res) => {
   const tableId = await getTable(req, res);
   const payload = req.body.map(item => {
