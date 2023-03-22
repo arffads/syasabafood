@@ -1,62 +1,77 @@
 const {
-    NotFoundError, InternalServerError, BadRequestError, ConflictError, ExpectationFailedError,
-    ForbiddenError, GatewayTimeoutError, ServiceUnavailableError, UnauthorizedError
-} = require('../error');
+  NotFoundError,
+  InternalServerError,
+  BadRequestError,
+  ConflictError,
+  ExpectationFailedError,
+  ForbiddenError,
+  GatewayTimeoutError,
+  ServiceUnavailableError,
+  UnauthorizedError,
+} = require("../error");
 
-const { ERROR: httpError } = require('../http-status/status_code');
+const { ERROR: httpError } = require("../http-status/status_code");
 
-const data = (data, description = '', code = 200) => ({
-    err: null, message: description, data, code
+const data = (data, description = "", code = 200) => ({
+  err: null,
+  message: description,
+  data,
+  code,
 });
 
 const paginationData = (data, meta) => ({
-    err: null, data, meta
+  err: null,
+  data,
+  meta,
 });
 
 const error = (err, description, code = 500) => ({
-    err, code, data: '', message: description
+  err,
+  code,
+  data: "",
+  message: description,
 });
 
-const response = (res, type, result, message = '', code = 200) => {
-    let status = true;
-    let data;
-    if(result && result.hasOwnProperty('data')) {
-      data = result.data
-    } else {
-      data = result
-    }
-    if(type === 'fail') {
-        status = false;
-        data = '';
-        message = result.message ? result.message : message;
-        code = checkErrorCode(result)
-    }
-    res.send(code, {
-        succes: status,
-        data,
-        message,
-        code
-    });
+const response = (res, type, result, message = "", code = 200) => {
+  let status = true;
+  let data;
+  if (result && result.hasOwnProperty("data")) {
+    data = result.data;
+  } else {
+    data = result;
+  }
+  if (type === "fail") {
+    status = false;
+    data = "";
+    message = result.message ? result.message : message;
+    code = checkErrorCode(result);
+  }
+  res.send(code, {
+    succes: status,
+    data,
+    message,
+    code,
+  });
 };
 
-const paginationResponse = (res, type, result, message = '', code = 200) => {
-    let status = true;
-    let { data } = result;
-    if(type === 'fail') {
-        status = false;
-        data = '';
-        message = result.message
-    }
-    res.send(code, {
-        succes: status,
-        data,
-        message,
-        code
-    });
+const paginationResponse = (res, type, result, message = "", code = 200) => {
+  let status = true;
+  let { data } = result;
+  if (type === "fail") {
+    status = false;
+    data = "";
+    message = result.message;
+  }
+  res.send(code, {
+    succes: status,
+    data,
+    message,
+    code,
+  });
 };
 
 const checkErrorCode = (error) => {
-    switch (error.constructor) {
+  switch (error.constructor) {
     case BadRequestError:
       return httpError.BAD_REQUEST;
     case ConflictError:
@@ -77,13 +92,13 @@ const checkErrorCode = (error) => {
       return httpError.UNAUTHORIZED;
     default:
       return httpError.CONFLICT;
-    }
-  };
+  }
+};
 
-  module.exports = {
-    data,
-    paginationData,
-    error,
-    response,
-    paginationResponse
-  };
+module.exports = {
+  data,
+  paginationData,
+  error,
+  response,
+  paginationResponse,
+};

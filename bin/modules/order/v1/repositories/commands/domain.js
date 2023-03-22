@@ -1,6 +1,7 @@
 const wrapper = require("../../../../../helpers/utils/wrapper");
 const command = require("../commands/command");
 const invoiceCommand = require("../../../../invoice/v1/repositories/commands/command");
+const detailOrderCommand = require("../commands/command");
 const query = require("../queries/query");
 const moment = require("moment-timezone");
 
@@ -8,36 +9,41 @@ moment.tz("Asia/Jakarta");
 
 class Order {
   async insertOrder(payload) {
-    payload = payload.map((item) => {
-      return {
-        ...item,
-        createAt: `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`,
-        updateAt: `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`,
-      };
-    });
-    const insertOrder = await command.insertOrder(payload);
-
-    const totalPrice = payload.reduce((acc, curr) => {
-      const calcProd = curr.price * curr.qty;
-      return acc + calcProd;
-    }, 0);
-    const invoicePayload = {
-      orderId: insertOrder.data.insertId,
-      tableId: payload[0].tableId,
-      totalPrice: totalPrice,
+    let nameFile;
+    const payloadOrder = {
+      ...payload,
+      status: "on_progress",
       createAt: `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`,
       updateAt: `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`,
     };
 
-    const insertInvoice = await invoiceCommand.insertInvoice(invoicePayload);
-    if (insertOrder.err) {
-      return wrapper.error("err", insertOrder.message, insertOrder.code);
+    const insertOrder = await command.insertOrder(payloadOrder);
+
+    const detailOrderPayload = {
+      order_id: insertOrder.data.insertId,
+      item: payloadOrder.item,
+      createdAt: `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`,
+      updatedAt: `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`,
+    };
+
+    let checkingDataProducts = detailOrderPayload.item.map((items) => {
+      return items.productId;
+    });
+
+    let isDuplicate = checkingDataProducts.some((item, index) => {
+      return checkingDataProducts.indexOf(item) != index;
+    });
+    if (isDuplicate === true) {
+      throw new Error("Product Duplicate");
     }
+    const insertDetailOrder = await command.insertDetailOrder(
+      detailOrderPayload
+    );
 
     let t = [];
     let b = [];
 
-    payload.map((el, i) => {
+    detailOrderPayload.item.map((el, i) => {
       t.push(el.productId);
       b.push(`WHEN ${el.productId} THEN qty - ${el.qty}`);
     });
@@ -48,8 +54,15 @@ class Order {
       iterateItem,
       iterateId,
     });
-    if (insertOrder.err || updateStockAfterOrder.err) {
+    if (insertOrder.err) {
       return wrapper.error("err", insertOrder.message, insertOrder.code);
+    }
+    if (insertDetailOrder.err || updateStockAfterOrder.err) {
+      return wrapper.error(
+        "err",
+        insertDetailOrder.message,
+        insertDetailOrder.code
+      );
     }
     return wrapper.data("", "Succes Input", 201);
   }
@@ -64,6 +77,7 @@ class Order {
 
   async updateOrder(payload) {
     payload.updateAt = moment().format("YYYY-MM-DD HH:mm:ss");
+    payload.status = "success";
     const updateOrder = await command.updateOrder(payload);
     if (updateOrder.err) {
       return wrapper.error("err", updateOrder.message, updateOrder.code);

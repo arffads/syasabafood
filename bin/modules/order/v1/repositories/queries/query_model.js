@@ -1,8 +1,7 @@
-const joi = require('joi');
+const joi = require("joi");
 
-const listOrder = joi.object({
-});
+const listOrder = joi.object({});
 
 module.exports = {
-  listOrder
+  listOrder,
 };

@@ -1,12 +1,9 @@
-const joi = require('joi');
+const joi = require("joi");
 
-const listInvoice = joi.object({
-});
-const listInvoiceByTable = joi.object({
-  tableId: joi.number().required()
+const getInvoiceByOrderId = joi.object({
+  order_id: joi.number().optional(),
 });
 
 module.exports = {
-  listInvoice,
-  listInvoiceByTable
+  getInvoiceByOrderId,
 };

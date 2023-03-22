@@ -1,14 +1,16 @@
-const joi = require('joi');
+const joi = require("joi");
 
-const listProduct = joi.object({
+const listProduct = joi.object({});
+const listProductByProductId = joi.object({
+  productId: joi.number().optional(),
 });
 
-const findingProduct = joi.object({
-  data: joi.string().required(),
-  categoryId: joi.string()
+const listProductByCategoryId = joi.object({
+  categoryId: joi.number().optional(),
 });
 
 module.exports = {
   listProduct,
-  findingProduct
+  listProductByProductId,
+  listProductByCategoryId,
 };
