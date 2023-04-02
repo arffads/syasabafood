@@ -57,10 +57,9 @@ const deleteOrder = async (param) => {
 };
 
 const updateOrder = async (param) => {
-  const { product_id, qty, customerName, customerContact, status, id } = param;
-  console.log(param);
+  const { status, id } = param;
   const db = new Mysql(configs.get("/mysqlConfig"));
-  const query = `UPDATE orders SET product_id = '${product_id}',  qty = '${qty}', customerName= '${customerName}', customerContact = '${customerContact}', status = '${status}' WHERE orders.id = '${id}'`;
+  const query = `UPDATE orders SET status = '${status}' WHERE orders.id = '${id}'`;
   const result = await db.query(query, [param]);
   return result;
 };

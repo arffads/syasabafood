@@ -26,14 +26,14 @@ const updateOrder = joi.object({
   tableId: joi.number().optional(),
   noMeja: joi.number().optional(),
   status: joi.string().optional(),
-  customerName: joi.string().required(),
+  customerName: joi.string().optional(),
   customerContact: joi.string().optional(),
-  total_price: joi.number().required(),
+  total_price: joi.number().optional(),
   item: joi.array().items(
     joi.object().keys({
-      productId: joi.number().required(),
-      qty: joi.number().required(),
-      price: joi.number().required(),
+      productId: joi.number().optional(),
+      qty: joi.number().optional(),
+      price: joi.number().optional(),
     })
   ),
 });

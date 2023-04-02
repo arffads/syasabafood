@@ -1,15 +1,11 @@
 const wrapper = require("../../../../../helpers/utils/wrapper");
 const command = require("../commands/command");
-const invoiceCommand = require("../../../../invoice/v1/repositories/commands/command");
-const detailOrderCommand = require("../commands/command");
-const query = require("../queries/query");
 const moment = require("moment-timezone");
 
 moment.tz("Asia/Jakarta");
 
 class Order {
   async insertOrder(payload) {
-    let nameFile;
     const payloadOrder = {
       ...payload,
       status: "on_progress",
@@ -76,8 +72,7 @@ class Order {
   }
 
   async updateOrder(payload) {
-    payload.updateAt = moment().format("YYYY-MM-DD HH:mm:ss");
-    payload.status = "success";
+    payload.createAt =  `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`;
     const updateOrder = await command.updateOrder(payload);
     if (updateOrder.err) {
       return wrapper.error("err", updateOrder.message, updateOrder.code);

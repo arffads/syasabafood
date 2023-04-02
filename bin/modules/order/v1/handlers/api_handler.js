@@ -83,13 +83,10 @@ const deleteOrder = async (req, res) => {
 };
 
 const updateOrder = async (req, res) => {
-  const userId = await getUser(req, res);
+  // const userId = await getUser(req, res);
   const payload = {
-    ...req.params,
-    ...req.body,
-    userId: userId.id,
-    status: "success",
-  };
+    ...req.params, ...req.body
+  }
   const validatePayload = validator.isValidPayload(
     payload,
     commandModel.updateOrder
