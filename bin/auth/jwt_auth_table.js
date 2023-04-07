@@ -33,7 +33,7 @@ const getToken = (headers) => {
   return undefined;
 };
 
-const verifyToken = async (req, res, next) => {
+const verifyTokenTable = async (req, res, next) => {
   const result = {
     data: null,
   };
@@ -50,7 +50,7 @@ const verifyToken = async (req, res, next) => {
       res,
       "fail",
       result,
-      "Invalid token!",
+      "Invalid token! Tot",
       ERROR.FORBIDDEN
     );
   }
@@ -75,14 +75,15 @@ const verifyToken = async (req, res, next) => {
       ERROR.UNAUTHORIZED
     );
   }
-  const no_meja = decodedToken.sub;
-  const findTable = await tableQuery.findTable({ no_meja });
+  const no_meja = decodedToken;
+  console.log(no_meja, "DASDA")
+  const findTable = await tableQuery.findTable(no_meja);
   if (findTable.err) {
     return wrapper.response(
       res,
       "fail",
       result,
-      "Invalid token!",
+      "Invalid token! Sat",
       ERROR.FORBIDDEN
     );
   } else if (findTable.data.length === 0) {
@@ -90,7 +91,7 @@ const verifyToken = async (req, res, next) => {
       res,
       "fail",
       result,
-      "Invalid token!",
+      "Invalid token! Blog",
       ERROR.FORBIDDEN
     );
   }
@@ -147,6 +148,6 @@ const getTable = async (req, res) => {
 
 module.exports = {
   generateToken,
-  verifyToken,
+  verifyTokenTable,
   getTable,
 };

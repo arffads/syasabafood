@@ -8,25 +8,11 @@ const productHandler = require("../modules/products/v1/handlers/api_handler");
 const tableHandler = require("../modules/table/v1/handlers/api_handler");
 const orderHandler = require("../modules/order/v1/handlers/api_handler");
 const invoiceHandler = require("../modules/invoice/v1/handlers/api_handler");
-const jwtAuth = require("../auth/jwt_auth_helper");
-const jwtAuthTable = require("../auth/jwt_auth_table");
+const {verifyToken} = require("../auth/jwt_auth_helper");
+const {verifyTokenTable} = require("../auth/jwt_auth_table");
 const basicAuth = require("../auth/basic_auth_helper");
+const { ERROR } = require("../helpers/http-status/status_code");
 
-const verifyToken = async (req, res, next) => {
-  const userAuth = await jwtAuth.verifyToken;
-  const tableAuth = await jwtAuthTable.verifyToken;
-  if (userAuth === "Invalid Token!" && tableAuth === "Invalid Token!") {
-    return wrapper.response(
-      res,
-      "fail",
-      result,
-      "Invalid token!!!",
-      ERROR.FORBIDDEN
-    );
-  } else {
-    next();
-  }
-};
 
 function AppServer() {
   this.server = restify.createServer({
@@ -64,7 +50,8 @@ function AppServer() {
     restify.plugins.serveStaticFiles("./bin/public/product")
   ); // GET /public/index.html -> ./doc/v1/index.html file
 
-  // ADMIN ROUTE
+
+  // ADMIN ACTIONS
   this.server.post(
     "/users/v1/auth",
     basicAuth.isAuthenticated,
@@ -76,12 +63,8 @@ function AppServer() {
 
   // PRODUCTS ROUTE
   this.server.post("/products/v1", verifyToken, productHandler.addProduct);
-  this.server.get("/products/v1", verifyToken, productHandler.listProduct);
-  this.server.get(
-    "/tables/products/v1",
-    verifyToken,
-    productHandler.listProduct
-  );
+  this.server.get("/admin/products/v1", verifyToken, productHandler.listProduct);
+
 
   this.server.put(
     "/products/v1/:id",
@@ -95,10 +78,11 @@ function AppServer() {
   );
 
   this.server.get(
-    "/products/v1/:productId",
+    "/admin/products/v1/:productId",
     verifyToken,
     productHandler.listProductByProductId
   );
+
   this.server.get(
     "/products/:categoryId",
     verifyToken,
@@ -111,19 +95,10 @@ function AppServer() {
   this.server.del("/table/v1/:id", verifyToken, tableHandler.deleteTable);
 
   // ROUTE TABLE USER
-  this.server.post(
-    "/table/v1/auth",
-    basicAuth.isAuthenticated,
-    tableHandler.authTable
-  );
-  this.server.get(
-    "/table/v1/products",
-    verifyToken,
-    productHandler.listProduct
-  );
+
 
   //ROUTE ORDER
-  this.server.post("/order/v1/add", verifyToken, orderHandler.addOrder);
+  this.server.post("/order/v1/add", verifyTokenTable, orderHandler.addOrder);
   this.server.get("/order/v1/list", verifyToken, orderHandler.listOrder);
   this.server.del("/order/v1/:id", verifyToken, orderHandler.deleteOrder);
   this.server.put("/order/v1/:id", verifyToken, orderHandler.updateOrder);
@@ -133,6 +108,34 @@ function AppServer() {
     verifyToken,
     invoiceHandler.getInvoiceByOrderId
   );
+
+
+  // CUSTOMER ACTION
+
+  this.server.post(
+    "/table/v1/auth",
+    basicAuth.isAuthenticated,
+    tableHandler.authTable
+  );
+  
+  this.server.get(
+    "/tables/products/v1",
+    verifyTokenTable,
+    productHandler.listProduct
+  );
+
+  this.server.get(
+    "/tables/products/v1/:productId",
+    verifyTokenTable,
+    productHandler.listProductByProductId
+  );
+
+  this.server.get(
+    "/invoice/:order_id",
+    verifyTokenTable,
+    invoiceHandler.getInvoiceByOrderId
+  );
+
 
   mysqlConnectionPooling.init();
 }
