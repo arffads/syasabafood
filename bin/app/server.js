@@ -117,7 +117,7 @@ function AppServer() {
     basicAuth.isAuthenticated,
     tableHandler.authTable
   );
-  
+
   this.server.get(
     "/tables/products/v1",
     verifyTokenTable,
@@ -131,7 +131,7 @@ function AppServer() {
   );
 
   this.server.get(
-    "/invoice/:order_id",
+    "/table/invoice/:order_id",
     verifyTokenTable,
     invoiceHandler.getInvoiceByOrderId
   );
