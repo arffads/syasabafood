@@ -47,7 +47,7 @@ function AppServer() {
 
   this.server.get(
     "/public/*", // don't forget the `/*`
-    restify.plugins.serveStaticFiles("./bin/public/product")
+    restify.plugins.serveStaticFiles("./bin/public")
   ); // GET /public/index.html -> ./doc/v1/index.html file
 
 
@@ -119,13 +119,13 @@ function AppServer() {
   );
 
   this.server.get(
-    "/tables/products/v1",
+    "/table/products/v1",
     verifyTokenTable,
     productHandler.listProduct
   );
 
   this.server.get(
-    "/tables/products/v1/:productId",
+    "/table/products/v1/:productId",
     verifyTokenTable,
     productHandler.listProductByProductId
   );

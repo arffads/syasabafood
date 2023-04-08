@@ -5,7 +5,7 @@ const insertOrder = joi.object({
   tableId: joi.number().optional(),
   noMeja: joi.number().optional(),
   status: joi.string().optional(),
-  customerName: joi.string().required(),
+  customerName: joi.string().optional(),
   customerContact: joi.string().optional(),
   total_price: joi.number().required(),
   item: joi.array().items(
