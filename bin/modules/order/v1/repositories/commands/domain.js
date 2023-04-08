@@ -60,7 +60,7 @@ class Order {
         insertDetailOrder.code
       );
     }
-    return wrapper.data("", "Succes Input", 201);
+    return wrapper.data({id: insertOrder.data.insertId}, "Succes Input");
   }
 
   async deleteOrder(payload) {

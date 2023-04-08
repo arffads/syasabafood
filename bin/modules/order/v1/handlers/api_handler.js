@@ -36,7 +36,7 @@ const addOrder = async (req, res) => {
   const sendResponse = async (result) => {
     result.err
       ? wrapper.response(res, "fail", result.err, result.message)
-      : wrapper.response(res, "succes", result.messaage, result.code);
+      : wrapper.response(res, 'success', result.data, result.message, result.code);
   };
   sendResponse(await postRequest(validatePayload));
 };
