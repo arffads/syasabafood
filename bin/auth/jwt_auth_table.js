@@ -76,7 +76,6 @@ const verifyTokenTable = async (req, res, next) => {
     );
   }
   const no_meja = decodedToken;
-  console.log(no_meja, "DASDA")
   const findTable = await tableQuery.findTable(no_meja);
   if (findTable.err) {
     return wrapper.response(

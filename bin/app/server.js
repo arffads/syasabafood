@@ -136,6 +136,8 @@ function AppServer() {
     invoiceHandler.getInvoiceByOrderId
   );
 
+  this.server.get("/table/order/:order_id", verifyTokenTable, orderHandler.listOrderByStatusSuccess)
+
 
   mysqlConnectionPooling.init();
 }
