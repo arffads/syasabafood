@@ -31,8 +31,8 @@ const authTable = async (req, res) => {
 
 
 const addTable = async (req, res) => {
-  const userId = await getUser(req, res);
-  const payload = { ...req.body, userId: userId.id };
+  // const userId = await getUser(req, res);
+  const payload = { ...req.body, /*userId: userId.id*/ };
   const validatePayload = validator.isValidPayload(payload, commandModel.addTable);
   const postRequest = async (result) =>{
     if (result.err) {

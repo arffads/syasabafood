@@ -18,7 +18,7 @@ const listProduct = async (params) => {
 const findProductByCategoryId = async (param) => {
   const { categoryId } = param;
   const db = new Mysql(configs.get("/mysqlConfig"));
-  const query = `SELECT products.*, products.name as product_name FROM products JOIN categories ON products.category_id = categories.id WHERE products.category_id = ${categoryId}`;
+  const query = `SELECT * FROM products WHERE products.category_id ='${categoryId}'`;
   const result = db.query(query);
   return result;
 };

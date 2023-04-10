@@ -13,9 +13,10 @@ const insertOneProduct = async (param) => {
     categoryId,
     userId,
     image,
+    // id
   } = param;
   const db = new Mysql(configs.get("/mysqlConfig"));
-  const query = `INSERT INTO products (id, name, price, discount, qty, type, create_at, update_at, category_id, user_id, image) VALUES ('NULL', '${namaProduk}', '${hargaProduk}', '${discount}', '${qty}', '${type}','${createAt}', '${updateAt}','${categoryId}', '${userId}', '${image}')`;
+  const query = `INSERT INTO products (name, price, discount, qty, type, create_at, update_at, category_id, user_id, image) VALUES ('${namaProduk}', '${hargaProduk}', '${discount}', '${qty}', '${type}','${createAt}', '${updateAt}','${categoryId}', '${userId}', '${image}')`;
   const result = await db.query(query);
   return result;
 };
@@ -29,6 +30,7 @@ const deleteProduct = async (param) => {
 };
 
 const updateProduct = async (param) => {
+  console.log(param, "<======")
   const {
     id,
     namaProduk,

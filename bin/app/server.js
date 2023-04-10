@@ -64,6 +64,7 @@ function AppServer() {
   // PRODUCTS ROUTE
   this.server.post("/products/v1", /*verifyToken,*/ productHandler.addProduct);
   this.server.get("/admin/products/v1", /*verifyToken,*/ productHandler.listProduct);
+  this.server.get("/admin/products/v1/category/:categoryId", /*verifyToken,*/ productHandler.listProductByCategoryId);
 
 
   this.server.put(
@@ -85,7 +86,7 @@ function AppServer() {
 
   this.server.get(
     "/products/:categoryId",
-    /*verifyToken,*/
+    verifyTokenTable,
     productHandler.listProductByCategoryId
   );
 

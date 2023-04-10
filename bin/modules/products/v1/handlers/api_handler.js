@@ -13,7 +13,7 @@ const getUser = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  const userId = await getUser(req, res);
+  // const userId = await getUser(req, res);
   if (req.files.hasOwnProperty("image")) {
     const uploadImage = await fs.rename(
       req.files["image"].path,
@@ -26,7 +26,7 @@ const addProduct = async (req, res) => {
 
   const payload = {
     ...req.body,
-    userId: userId.id,
+    // userId: userId.id,
     image: req.files["image"].name,
   };
   const validatePayload = validator.isValidPayload(
@@ -88,6 +88,7 @@ const listProductByProductId = async (req, res) => {
   sendResponse(await postRequest(validatePayload));
 };
 
+
 const listProductByCategoryId = async (req, res) => {
   // TODO
   const payload = req.params;
@@ -130,11 +131,11 @@ const deleteProduct = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-  const userId = await getUser(req, res);
+  // const userId = await getUser(req, res);
   const payload = {
     ...req.params,
     ...req.body,
-    userId: userId.id,
+    // userId: userId.id,
   };
   const validatePayload = validator.isValidPayload(
     payload,
