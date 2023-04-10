@@ -58,54 +58,54 @@ function AppServer() {
     userHandler.authenticate
   );
   this.server.post("/users/v1/register", userHandler.register);
-  this.server.get("/users/v1", verifyToken, userHandler.getUser);
-  this.server.del("/users/v1/:id", verifyToken, userHandler.deleteUser);
+  this.server.get("/users/v1", /*verifyToken,*/ userHandler.getUser);
+  this.server.del("/users/v1/:id", /*verifyToken,*/ userHandler.deleteUser);
 
   // PRODUCTS ROUTE
-  this.server.post("/products/v1", verifyToken, productHandler.addProduct);
-  this.server.get("/admin/products/v1", verifyToken, productHandler.listProduct);
+  this.server.post("/products/v1", /*verifyToken,*/ productHandler.addProduct);
+  this.server.get("/admin/products/v1", /*verifyToken,*/ productHandler.listProduct);
 
 
   this.server.put(
     "/products/v1/:id",
-    verifyToken,
+    /*verifyToken,*/
     productHandler.updateProduct
   );
   this.server.del(
     "/products/v1/:id",
-    verifyToken,
+    /*verifyToken,*/
     productHandler.deleteProduct
   );
 
   this.server.get(
     "/admin/products/v1/:productId",
-    verifyToken,
+    /*verifyToken,*/
     productHandler.listProductByProductId
   );
 
   this.server.get(
     "/products/:categoryId",
-    verifyToken,
+    /*verifyToken,*/
     productHandler.listProductByCategoryId
   );
 
   // ROUTE TABLE ADMIN
-  this.server.post("/table/v1/add", verifyToken, tableHandler.addTable);
-  this.server.get("/table/v1", verifyToken, tableHandler.listTable);
-  this.server.del("/table/v1/:id", verifyToken, tableHandler.deleteTable);
+  this.server.post("/table/v1/add", /*verifyToken,*/ tableHandler.addTable);
+  this.server.get("/table/v1", /*verifyToken,*/ tableHandler.listTable);
+  this.server.del("/table/v1/:id", /*verifyToken,*/ tableHandler.deleteTable);
 
   // ROUTE TABLE USER
 
 
   //ROUTE ORDER
-  this.server.post("/order/v1/add", verifyTokenTable, orderHandler.addOrder);
-  this.server.get("/order/v1/list", verifyToken, orderHandler.listOrder);
-  this.server.del("/order/v1/:id", verifyToken, orderHandler.deleteOrder);
-  this.server.put("/order/v1/:id", verifyToken, orderHandler.updateOrder);
+  
+  this.server.get("/order/v1/list", /*verifyToken,*/ orderHandler.listOrder);
+  this.server.del("/order/v1/:id", /*verifyToken,*/ orderHandler.deleteOrder);
+  this.server.put("/order/v1/:id", /*verifyToken,*/ orderHandler.updateOrder);
   //  INVOICE ROUTES
   this.server.get(
     "/invoice/:order_id",
-    verifyToken,
+    /*verifyToken,*/
     invoiceHandler.getInvoiceByOrderId
   );
 
@@ -117,6 +117,8 @@ function AppServer() {
     basicAuth.isAuthenticated,
     tableHandler.authTable
   );
+
+  this.server.post("/order/v1/add", verifyTokenTable, orderHandler.addOrder);
 
   this.server.get(
     "/table/products/v1",
