@@ -23,19 +23,7 @@ const deleteOrder = joi.object({
 
 const updateOrder = joi.object({
   id: joi.string().optional(),
-  tableId: joi.number().optional(),
-  noMeja: joi.number().optional(),
   status: joi.string().optional(),
-  customerName: joi.string().optional(),
-  customerContact: joi.string().optional(),
-  total_price: joi.number().optional(),
-  item: joi.array().items(
-    joi.object().keys({
-      productId: joi.number().optional(),
-      qty: joi.number().optional(),
-      price: joi.number().optional(),
-    })
-  ),
 });
 
 module.exports = {

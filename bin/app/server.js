@@ -62,7 +62,7 @@ function AppServer() {
   this.server.del("/users/v1/:id", /*verifyToken,*/ userHandler.deleteUser);
 
   // PRODUCTS ROUTE
-  this.server.post("/products/v1", /*verifyToken,*/ productHandler.addProduct);
+  this.server.post("/admin/products/v1", /*verifyToken,*/ productHandler.addProduct);
   this.server.get("/admin/products/v1", /*verifyToken,*/ productHandler.listProduct);
   this.server.get("/admin/products/v1/category/:categoryId", /*verifyToken,*/ productHandler.listProductByCategoryId);
 

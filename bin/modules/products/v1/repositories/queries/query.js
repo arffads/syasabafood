@@ -10,7 +10,7 @@ const listProduct = async (params) => {
     withDate = `WHERE products.create_at >= '${startDate}' AND products.create_at <= '${endDate}' + interval 1 DAY ORDER BY products.create_at ASC`;
   }
   const db = new Mysql(configs.get("/mysqlConfig"));
-  const query = `SELECT products.*, categories.name as category FROM products LEFT JOIN categories ON products.category_id = categories.id`;
+  const query = `SELECT products.*, categories.name as category FROM products LEFT JOIN categories ON products.category_id = categories.id ORDER BY create_at DESC`;
   const result = await db.query(query);
   return result;
 };
