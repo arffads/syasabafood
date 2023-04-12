@@ -3,7 +3,7 @@ const configs = require("../../../../../infrastructure/configs/global_config");
 
 const listOrder = async (param) => {
   const db = new Mysql(configs.get("/mysqlConfig"));
-  const query = ` SELECT * FROM orders JOIN detail_order ON detail_order.order_id = orders.id JOIN products ON detail_order.product_id = products.id ORDER BY orders.create_at DESC`;
+  const query = ` SELECT * FROM orders ORDER BY id DESC`;
   const result = await db.query(query);
   return result;
 };
