@@ -14,7 +14,6 @@ const insertOrder = async (param) => {
     updateAt,
   } = param;
   const query = `INSERT INTO orders (tableId, no_meja, status, customer_name, customer_contact, total_price, create_at, update_at) VALUES (${tableId}, ${noMeja},"${status}","${customerName}","${customerContact}",${total_price},"${createAt}","${updateAt}")`;
-  console.log(query, "XXXXXX")
   const result = await db.query(query, [param]);
   return result;
 };

@@ -5,16 +5,10 @@ const queryHandler = require("../repositories/queries/query_handler");
 const queryModel = require("../repositories/queries/query_model");
 const validator = require("../utils/validator");
 const jwtAuthTable = require("../../../../auth/jwt_auth_table");
-const jwtAuth = require("../../../../auth/jwt_auth_helper");
 
 const getTable = async (req, res) => {
   const table = await jwtAuthTable.getTable(req, res);
   return table;
-};
-
-const getUser = async (req, res) => {
-  const user = await jwtAuth.getUser(req, res);
-  return user;
 };
 
 const addOrder = async (req, res) => {
@@ -83,7 +77,6 @@ const deleteOrder = async (req, res) => {
 };
 
 const updateOrder = async (req, res) => {
-  // const userId = await getUser(req, res);
   const payload = {
     id: req.params.id, status: req.body.status
   }

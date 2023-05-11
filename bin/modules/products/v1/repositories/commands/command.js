@@ -30,7 +30,6 @@ const deleteProduct = async (param) => {
 };
 
 const updateProduct = async (param) => {
-  console.log(param, "<======")
   const {
     id,
     namaProduk,

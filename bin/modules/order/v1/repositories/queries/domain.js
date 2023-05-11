@@ -4,7 +4,6 @@ const query = require("../queries/query");
 class Order {
   async listOrder() {
     let listOrder = await query.listOrder();
-    console.log(listOrder, "LIST ORDER")
     if (listOrder.err) {
       return wrapper.error("err", listOrder.message, listOrder.code);
     } else if (listOrder.data.length === 0) {
