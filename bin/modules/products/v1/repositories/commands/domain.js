@@ -37,6 +37,16 @@ class Product {
     }
     return wrapper.data("", "Success Update", 201);
   }
+
+  async updateStock(payload) {
+    payload.createAt = moment().format("YYYY-MM-DD HH:mm:ss");
+    payload.updateAt = moment().format("YYYY-MM-DD HH:mm:ss");
+    const updateStock = await command.updateStock(payload);
+    if (updateStock.err) {
+      return wrapper.error("err", updateStock.message, updateStock.code);
+    }
+    return wrapper.data("", "Success Update", 201);
+  }
 }
 
 module.exports = Product;

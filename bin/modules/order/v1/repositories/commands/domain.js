@@ -6,11 +6,12 @@ moment.tz("Asia/Jakarta");
 
 class Order {
   async insertOrder(payload) {
+    const dateNow = moment()
     const payloadOrder = {
       ...payload,
       status: "on_progress",
-      createAt: `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`,
-      updateAt: `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`,
+      createAt: `${dateNow.format("YYYY-MM-DD HH:mm:ss")}`,
+      updateAt: `${dateNow.format("YYYY-MM-DD HH:mm:ss")}`,
     };
 
     const insertOrder = await command.insertOrder(payloadOrder);
@@ -18,8 +19,8 @@ class Order {
     const detailOrderPayload = {
       order_id: insertOrder.data.insertId,
       item: payloadOrder.item,
-      createdAt: `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`,
-      updatedAt: `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`,
+      createdAt: `${dateNow.format("YYYY-MM-DD HH:mm:ss")}`,
+      updatedAt: `${dateNow.format("YYYY-MM-DD HH:mm:ss")}`,
     };
 
     let checkingDataProducts = detailOrderPayload.item.map((items) => {

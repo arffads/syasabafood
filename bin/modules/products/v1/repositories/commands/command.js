@@ -47,8 +47,20 @@ const updateProduct = async (param) => {
   return result;
 };
 
+const updateStock = async (param) => {
+  const {
+    id, isActive
+  } = param;
+  const db = new Mysql(configs.get("/mysqlConfig"));
+  const query = `UPDATE products SET isActive = '${isActive}' WHERE products.id = ${id}`;
+  const result = await db.query(query, [param]);
+  return result;
+};
+
+
 module.exports = {
   insertOneProduct,
   deleteProduct,
   updateProduct,
+  updateStock
 };

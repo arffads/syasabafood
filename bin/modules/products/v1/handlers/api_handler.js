@@ -155,6 +155,30 @@ const updateProduct = async (req, res) => {
   sendResponse(await postRequest(validatePayload));
 };
 
+const updateStock = async(req, res) => {
+  const payload = {
+    ...req.params,
+    ...req.body
+  }
+
+  const validatePayload = validator.isValidPayload(payload, commandModel.updateProduct)
+
+  const postRequest = async (result) => {
+    if(result.err) {
+      return result
+    }
+    return await commandHandler.updateStock(payload)
+  }
+
+  const sendResponse = async(result) => {
+    result.err
+      ? wrapper.response(res, "fail", result.err, result.message)
+      : wrapper.response(res, "success", result, result.message, result.code);
+  }
+  sendResponse(await postRequest(validatePayload))
+}
+
+
 module.exports = {
   addProduct,
   listProduct,
@@ -162,4 +186,5 @@ module.exports = {
   updateProduct,
   listProductByProductId,
   listProductByCategoryId,
+  updateStock,
 };

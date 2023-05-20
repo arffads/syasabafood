@@ -25,6 +25,7 @@ const updateProduct = joi.object({
   categoryId: joi.number().optional(),
   userId: joi.number().optional(),
   type: joi.string().optional(),
+  isActive: joi.string().optional(),
 });
 
 module.exports = {

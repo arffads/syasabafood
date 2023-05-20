@@ -18,8 +18,16 @@ const updateProduct = async (payload) => {
   return postCommand(payload);
 };
 
+
+const updateStock = async (payload) => {
+  const product = new Product();
+  const postCommand = async payload => product.updateStock(payload);
+  return postCommand(payload);
+};
+
 module.exports = {
   addProduct,
   deleteProduct,
-  updateProduct
+  updateProduct,
+  updateStock
 };

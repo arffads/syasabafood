@@ -72,6 +72,12 @@ function AppServer() {
     /*verifyToken,*/
     productHandler.updateProduct
   );
+
+  this.server.put(
+    "/product/v1/:id",
+    /*verifyToken,*/
+    productHandler.updateStock
+  );
   this.server.del(
     "/products/v1/:id",
     /*verifyToken,*/
