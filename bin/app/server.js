@@ -8,11 +8,10 @@ const productHandler = require("../modules/products/v1/handlers/api_handler");
 const tableHandler = require("../modules/table/v1/handlers/api_handler");
 const orderHandler = require("../modules/order/v1/handlers/api_handler");
 const invoiceHandler = require("../modules/invoice/v1/handlers/api_handler");
-const {verifyToken} = require("../auth/jwt_auth_helper");
-const {verifyTokenTable} = require("../auth/jwt_auth_table");
+const { verifyToken } = require("../auth/jwt_auth_helper");
+const { verifyTokenTable } = require("../auth/jwt_auth_table");
 const basicAuth = require("../auth/basic_auth_helper");
 const { ERROR } = require("../helpers/http-status/status_code");
-
 
 function AppServer() {
   this.server = restify.createServer({
@@ -50,7 +49,6 @@ function AppServer() {
     restify.plugins.serveStaticFiles("./bin/public")
   ); // GET /public/index.html -> ./doc/v1/index.html file
 
-
   // ADMIN ACTIONS
   this.server.post(
     "/users/v1/auth",
@@ -62,10 +60,18 @@ function AppServer() {
   this.server.del("/users/v1/:id", /*verifyToken,*/ userHandler.deleteUser);
 
   // PRODUCTS ROUTE
-  this.server.post("/admin/products/v1", /*verifyToken,*/ productHandler.addProduct);
-  this.server.get("/admin/products/v1", /*verifyToken,*/ productHandler.listProduct);
-  this.server.get("/admin/products/v1/category/:categoryId", /*verifyToken,*/ productHandler.listProductByCategoryId);
-
+  this.server.post(
+    "/admin/products/v1",
+    /*verifyToken,*/ productHandler.addProduct
+  );
+  this.server.get(
+    "/admin/products/v1",
+    /*verifyToken,*/ productHandler.listProduct
+  );
+  this.server.get(
+    "/admin/products/v1/category/:categoryId",
+    /*verifyToken,*/ productHandler.listProductByCategoryId
+  );
 
   this.server.put(
     "/products/v1/:id",
@@ -103,19 +109,21 @@ function AppServer() {
 
   // ROUTE TABLE USER
 
-
   //ROUTE ORDER
-  
+
   this.server.get("/order/v1/list", /*verifyToken,*/ orderHandler.listOrder);
   this.server.del("/order/v1/:id", /*verifyToken,*/ orderHandler.deleteOrder);
   this.server.put("/order/v1/:id", /*verifyToken,*/ orderHandler.updateOrder);
+  this.server.post(
+    "/detail_order/v1/:order_id",
+    /*verifyToken,*/ orderHandler.insertDetailOrder
+  );
   //  INVOICE ROUTES
   this.server.get(
     "/invoice/:order_id",
     /*verifyToken,*/
     invoiceHandler.getInvoiceByOrderId
   );
-
 
   // CUSTOMER ACTION
 
@@ -145,8 +153,11 @@ function AppServer() {
     invoiceHandler.getInvoiceByOrderId
   );
 
-  this.server.get("/table/order/:order_id", verifyTokenTable, orderHandler.listOrderByStatusSuccess)
-
+  this.server.get(
+    "/table/order/:order_id",
+    verifyTokenTable,
+    orderHandler.listOrderByStatusSuccess
+  );
 
   mysqlConnectionPooling.init();
 }

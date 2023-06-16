@@ -6,7 +6,7 @@ moment.tz("Asia/Jakarta");
 
 class Order {
   async insertOrder(payload) {
-    const dateNow = moment()
+    const dateNow = moment();
     const payloadOrder = {
       ...payload,
       status: "on_progress",
@@ -61,7 +61,36 @@ class Order {
         insertDetailOrder.code
       );
     }
-    return wrapper.data({id: insertOrder.data.insertId}, "Succes Input");
+    return wrapper.data({ id: insertOrder.data.insertId }, "Succes Input");
+  }
+
+  async insertDetailOrders(payload) {
+    const dateNow = moment();
+
+    const detailOrderPayload = {
+      order_id: payload.order_id,
+      productId: payload.productId,
+      qty: payload.qty,
+      price: payload.price,
+      createdAt: `${dateNow.format("YYYY-MM-DD HH:mm:ss")}`,
+      updatedAt: `${dateNow.format("YYYY-MM-DD HH:mm:ss")}`,
+    };
+    const insertDetailOrder = await command.insertDetailOrder(
+      detailOrderPayload,
+      false
+    );
+
+    if (insertDetailOrder.err) {
+      return wrapper.error(
+        "err",
+        insertDetailOrder.message,
+        insertDetailOrder.code
+      );
+    }
+    return wrapper.data(
+      { id: insertDetailOrder.data.insertId },
+      "Succes Input"
+    );
   }
 
   async deleteOrder(payload) {
@@ -73,7 +102,7 @@ class Order {
   }
 
   async updateOrder(payload) {
-    payload.createAt =  `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`;
+    payload.createAt = `${moment().format("YYYY-MM-DD HH:mm:ss").toString()}`;
     const updateOrder = await command.updateOrder(payload);
     if (updateOrder.err) {
       return wrapper.error("err", updateOrder.message, updateOrder.code);

@@ -19,7 +19,7 @@ const listOrderByStatusSuccess = async (param) => {
 const findOrderByOrderId = async (param) => {
   const { order_id } = param;
   const db = new Mysql(configs.get("/mysqlConfig"));
-  const query = `SELECT * FROM orders LEFT OUTER JOIN detail_order ON detail_order.order_id = orders.id LEFT OUTER JOIN products ON detail_order.product_id = products.id WHERE detail_order.order_id = "${order_id}"`;
+  const query = `SELECT products.name, products.id, detail_order.qty, products.price FROM orders LEFT OUTER JOIN detail_order ON detail_order.order_id = orders.id LEFT OUTER JOIN products ON detail_order.product_id = products.id WHERE detail_order.order_id = "${order_id}"`;
   const result = await db.query(query);
   return result;
 };
@@ -53,5 +53,5 @@ module.exports = {
   findOrderByOrderId,
   listProduct,
   findOrderByStatus,
-  listOrderByStatusSuccess
+  listOrderByStatusSuccess,
 };

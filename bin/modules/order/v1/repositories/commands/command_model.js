@@ -17,6 +17,13 @@ const insertOrder = joi.object({
   ),
 });
 
+const insertDetailOrder = joi.object({
+  order_id: joi.number().optional(),
+  productId: joi.number().optional(),
+  qty: joi.number().optional(),
+  price: joi.number().optional(),
+});
+
 const deleteOrder = joi.object({
   id: joi.number().required(),
 });
@@ -30,4 +37,5 @@ module.exports = {
   insertOrder,
   deleteOrder,
   updateOrder,
+  insertDetailOrder,
 };

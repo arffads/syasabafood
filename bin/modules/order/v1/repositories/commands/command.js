@@ -18,26 +18,31 @@ const insertOrder = async (param) => {
   return result;
 };
 
-const insertDetailOrder = async (param) => {
+const insertDetailOrder = async (param, isBulk = true) => {
   const db = new Mysql(configs.get("/mysqlConfig"));
-  const data = param.item.map((obj) => ({
-    order_id: param.order_id,
-    productId: obj.productId,
-    qty: obj.qty,
-    price: obj.price,
-    createdAt: param.createdAt,
-    updatedAt: param.updatedAt,
-  }));
-  const datas = data.map((object) => {
-    return Object.values(object);
-  });
   let s = "";
-  datas.forEach((res, index) => {
-    const temp = `${res.map((es) => "'" + es + "'")}`;
-    s = s + `(${temp})` + (datas.length - 1 === index ? "" : ",");
-  });
+  if (isBulk) {
+    const data = param.item.map((obj) => ({
+      order_id: param.order_id,
+      productId: obj.productId,
+      qty: obj.qty,
+      price: obj.price,
+      createdAt: param.createdAt,
+      updatedAt: param.updatedAt,
+    }));
+    const datas = data.map((object) => {
+      return Object.values(object);
+    });
+    datas.forEach((res, index) => {
+      const temp = `${res.map((es) => "'" + es + "'")}`;
+      s = s + `(${temp})` + (datas.length - 1 === index ? "" : ",");
+    });
+  } else {
+    s = `(${param.order_id}, ${param.productId}, ${param.qty}, ${param.price}, '${param.createdAt}', '${param.updatedAt}')`;
+  }
   const query = `INSERT INTO detail_order (order_id, product_id, qty , product_price, createdAt, updatedAt) VALUES ${s}`;
   const result = await db.query(query);
+  console.log(query, "<<<<<");
   return result;
 };
 

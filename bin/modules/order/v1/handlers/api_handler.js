@@ -30,9 +30,45 @@ const addOrder = async (req, res) => {
   const sendResponse = async (result) => {
     result.err
       ? wrapper.response(res, "fail", result.err, result.message)
-      : wrapper.response(res, 'success', result.data, result.message, result.code);
+      : wrapper.response(
+          res,
+          "success",
+          result.data,
+          result.message,
+          result.code
+        );
   };
   sendResponse(await postRequest(validatePayload));
+};
+
+const insertDetailOrder = async (req, res) => {
+  const payload = { ...req.body, order_id: req.params.order_id };
+  try {
+    const validatePayload = validator.isValidPayload(
+      payload,
+      commandModel.insertDetailOrder
+    );
+    const postRequest = async (result) => {
+      if (result.err) {
+        return result;
+      }
+      return await commandHandler.insertDetailOrder(result.data);
+    };
+    const sendResponse = async (result) => {
+      result.err
+        ? wrapper.response(res, "fail", result.err, result.message)
+        : wrapper.response(
+            res,
+            "success",
+            result.data,
+            result.message,
+            result.code
+          );
+    };
+    sendResponse(await postRequest(validatePayload));
+  } catch (e) {
+    console.log(e, "<====++++");
+  }
 };
 
 const listOrder = async (req, res) => {
@@ -78,8 +114,9 @@ const deleteOrder = async (req, res) => {
 
 const updateOrder = async (req, res) => {
   const payload = {
-    id: req.params.id, status: req.body.status
-  }
+    id: req.params.id,
+    status: req.body.status,
+  };
   const validatePayload = validator.isValidPayload(
     payload,
     commandModel.updateOrder
@@ -98,7 +135,7 @@ const updateOrder = async (req, res) => {
   sendResponse(await postRequest(validatePayload));
 };
 
-const listOrderByStatusSuccess = async(req, res) => {
+const listOrderByStatusSuccess = async (req, res) => {
   const payload = req.params;
   const validatePayload = validator.isValidPayload(
     payload,
@@ -116,12 +153,13 @@ const listOrderByStatusSuccess = async(req, res) => {
       : wrapper.response(res, "succes", result, result.message, result.code);
   };
   sendResponse(await postRequest(validatePayload));
-}
+};
 
 module.exports = {
   addOrder,
   updateOrder,
   deleteOrder,
   listOrder,
-  listOrderByStatusSuccess
+  listOrderByStatusSuccess,
+  insertDetailOrder,
 };
