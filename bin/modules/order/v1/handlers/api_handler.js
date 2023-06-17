@@ -43,32 +43,29 @@ const addOrder = async (req, res) => {
 
 const insertDetailOrder = async (req, res) => {
   const payload = { ...req.body, order_id: req.params.order_id };
-  try {
-    const validatePayload = validator.isValidPayload(
-      payload,
-      commandModel.insertDetailOrder
-    );
-    const postRequest = async (result) => {
-      if (result.err) {
-        return result;
-      }
-      return await commandHandler.insertDetailOrder(result.data);
-    };
-    const sendResponse = async (result) => {
-      result.err
-        ? wrapper.response(res, "fail", result.err, result.message)
-        : wrapper.response(
-            res,
-            "success",
-            result.data,
-            result.message,
-            result.code
-          );
-    };
-    sendResponse(await postRequest(validatePayload));
-  } catch (e) {
-    console.log(e, "<====++++");
-  }
+
+  const validatePayload = validator.isValidPayload(
+    payload,
+    commandModel.insertDetailOrder
+  );
+  const postRequest = async (result) => {
+    if (result.err) {
+      return result;
+    }
+    return await commandHandler.insertDetailOrder(result.data);
+  };
+  const sendResponse = async (result) => {
+    result.err
+      ? wrapper.response(res, "fail", result.err, result.message)
+      : wrapper.response(
+          res,
+          "success",
+          result.data,
+          result.message,
+          result.code
+        );
+  };
+  sendResponse(await postRequest(validatePayload));
 };
 
 const listOrder = async (req, res) => {

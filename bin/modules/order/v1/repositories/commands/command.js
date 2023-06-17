@@ -42,7 +42,6 @@ const insertDetailOrder = async (param, isBulk = true) => {
   }
   const query = `INSERT INTO detail_order (order_id, product_id, qty , product_price, createdAt, updatedAt) VALUES ${s}`;
   const result = await db.query(query);
-  console.log(query, "<<<<<");
   return result;
 };
 
