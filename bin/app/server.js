@@ -56,43 +56,24 @@ function AppServer() {
     userHandler.authenticate
   );
   this.server.post("/users/v1/register", userHandler.register);
-  this.server.get("/users/v1", /*verifyToken,*/ userHandler.getUser);
-  this.server.del("/users/v1/:id", /*verifyToken,*/ userHandler.deleteUser);
+  this.server.get("/users/v1", userHandler.getUser);
+  this.server.del("/users/v1/:id", userHandler.deleteUser);
 
   // PRODUCTS ROUTE
-  this.server.post(
-    "/admin/products/v1",
-    /*verifyToken,*/ productHandler.addProduct
-  );
-  this.server.get(
-    "/admin/products/v1",
-    /*verifyToken,*/ productHandler.listProduct
-  );
+  this.server.post("/admin/products/v1", productHandler.addProduct);
+  this.server.get("/admin/products/v1", productHandler.listProduct);
   this.server.get(
     "/admin/products/v1/category/:categoryId",
-    /*verifyToken,*/ productHandler.listProductByCategoryId
+    productHandler.listProductByCategoryId
   );
 
-  this.server.put(
-    "/products/v1/:id",
-    /*verifyToken,*/
-    productHandler.updateProduct
-  );
+  this.server.put("/products/v1/:id", productHandler.updateProduct);
 
-  this.server.put(
-    "/product/v1/:id",
-    /*verifyToken,*/
-    productHandler.updateStock
-  );
-  this.server.del(
-    "/products/v1/:id",
-    /*verifyToken,*/
-    productHandler.deleteProduct
-  );
+  this.server.put("/product/v1/:id", productHandler.updateStock);
+  this.server.del("/products/v1/:id", productHandler.deleteProduct);
 
   this.server.get(
     "/admin/products/v1/:productId",
-    /*verifyToken,*/
     productHandler.listProductByProductId
   );
 
@@ -103,27 +84,23 @@ function AppServer() {
   );
 
   // ROUTE TABLE ADMIN
-  this.server.post("/table/v1/add", /*verifyToken,*/ tableHandler.addTable);
-  this.server.get("/table/v1", /*verifyToken,*/ tableHandler.listTable);
-  this.server.del("/table/v1/:id", /*verifyToken,*/ tableHandler.deleteTable);
+  this.server.post("/table/v1/add", tableHandler.addTable);
+  this.server.get("/table/v1", tableHandler.listTable);
+  this.server.del("/table/v1/:id", tableHandler.deleteTable);
 
   // ROUTE TABLE USER
 
   //ROUTE ORDER
 
-  this.server.get("/order/v1/list", /*verifyToken,*/ orderHandler.listOrder);
-  this.server.del("/order/v1/:id", /*verifyToken,*/ orderHandler.deleteOrder);
-  this.server.put("/order/v1/:id", /*verifyToken,*/ orderHandler.updateOrder);
+  this.server.get("/order/v1/list", orderHandler.listOrder);
+  this.server.del("/order/v1/:id", orderHandler.deleteOrder);
+  this.server.put("/order/v1/:id", orderHandler.updateOrder);
   this.server.post(
     "/detail_order/v1/:order_id",
-    /*verifyToken,*/ orderHandler.insertDetailOrder
+    orderHandler.insertDetailOrder
   );
   //  INVOICE ROUTES
-  this.server.get(
-    "/invoice/:order_id",
-    /*verifyToken,*/
-    invoiceHandler.getInvoiceByOrderId
-  );
+  this.server.get("/invoice/:order_id", invoiceHandler.getInvoiceByOrderId);
 
   // CUSTOMER ACTION
 
