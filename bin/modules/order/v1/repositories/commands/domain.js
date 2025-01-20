@@ -1,5 +1,6 @@
 const wrapper = require("../../../../../helpers/utils/wrapper");
 const command = require("../commands/command");
+const query = require("../queries/query")
 const moment = require("moment-timezone");
 
 moment.tz("Asia/Jakarta");
@@ -61,7 +62,10 @@ class Order {
         insertDetailOrder.code
       );
     }
-    return wrapper.data({ id: insertOrder.data.insertId }, "Succes Input");
+    const getOrderById = await query.getOrderByOrderId(insertOrder.data.insertId)
+
+    console.log(getOrderById.data,"?????????????")
+    return wrapper.data({ id: insertOrder.data.insertId,...getOrderById.data[0] }, "Succes Input");
   }
 
   async insertDetailOrders(payload) {

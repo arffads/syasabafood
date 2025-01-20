@@ -17,7 +17,7 @@ class Product {
         insertOneProduct.code
       );
     }
-    return wrapper.data("", "Succes Input", 201);
+    return wrapper.data(payload, "Succes Input", 201);
   }
 
   async deleteProduct(payload) {

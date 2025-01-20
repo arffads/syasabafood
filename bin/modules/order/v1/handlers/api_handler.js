@@ -28,6 +28,7 @@ const addOrder = async (req, res) => {
     return await commandHandler.insertOrder(result.data);
   };
   const sendResponse = async (result) => {
+    // console.log(result)
     result.err
       ? wrapper.response(res, "fail", result.err, result.message)
       : wrapper.response(
@@ -38,6 +39,7 @@ const addOrder = async (req, res) => {
           result.code
         );
   };
+  
   sendResponse(await postRequest(validatePayload));
 };
 

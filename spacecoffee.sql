@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 10, 2023 at 06:54 PM
+-- Host: 127.0.0.1
+-- Generation Time: Jan 20, 2025 at 04:04 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `syasaba`
+-- Database: `spacecoffee`
 --
 
 -- --------------------------------------------------------
@@ -56,28 +56,6 @@ CREATE TABLE `detail_order` (
   `updatedAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `detail_order`
---
-
-INSERT INTO `detail_order` (`id`, `order_id`, `product_id`, `qty`, `product_price`, `createdAt`, `updatedAt`) VALUES
-(1, 578, 12, 2, 20000, '2023-04-02', '2023-04-02'),
-(2, 578, 14, 2, 7000, '2023-04-02', '2023-04-02'),
-(3, 579, 12, 2, 20000, '2023-04-09', '2023-04-09'),
-(4, 579, 14, 2, 7000, '2023-04-09', '2023-04-09'),
-(5, 580, 12, 2, 20000, '2023-04-09', '2023-04-09'),
-(6, 580, 14, 2, 7000, '2023-04-09', '2023-04-09'),
-(7, 581, 12, 2, 20000, '2023-04-09', '2023-04-09'),
-(8, 581, 14, 2, 7000, '2023-04-09', '2023-04-09'),
-(9, 582, 12, 2, 20000, '2023-04-09', '2023-04-09'),
-(10, 582, 14, 2, 7000, '2023-04-09', '2023-04-09'),
-(11, 583, 12, 2, 20000, '2023-04-09', '2023-04-09'),
-(12, 583, 14, 2, 7000, '2023-04-09', '2023-04-09'),
-(13, 584, 12, 2, 20000, '2023-04-09', '2023-04-09'),
-(14, 584, 14, 2, 7000, '2023-04-09', '2023-04-09'),
-(15, 585, 15, 2, 15000, '2023-04-10', '2023-04-10'),
-(16, 585, 13, 2, 7000, '2023-04-10', '2023-04-10');
-
 -- --------------------------------------------------------
 
 --
@@ -96,10 +74,16 @@ CREATE TABLE `food_tables` (
 --
 
 INSERT INTO `food_tables` (`id`, `userId`, `no_meja`, `password`) VALUES
-(9, 9, 500, '$2b$10$XEJ2vy7EAnnpdDQ0rLzvuucY0NAek3X7szDZbL4Q5nmaa2Rj628Fu'),
-(12, 9, 501, '$2b$10$OK0WJAUN3PaA74oATAzC7ec/SU1nbzh23zt0JNkF2cGVgtBQB7JEW'),
-(13, 9, 505, '$2b$10$wICD23Cu8dT3362RXWIqs.1ef1jBwRrJAY7rLiprRdaoSzFhdr5zm'),
-(16, 9, 588, '$2b$10$7OdyDcGYz1/Ce/XixgT3/uYbQvzbg.bedCR3pIl5E0M4ELV.hAmZa');
+(17, 9, 1, '$2b$10$Tn3BoN.aFzEXC7nrMIVwJePTusNL2Fn3LY8t9IjLNhbJBFFx3oefK'),
+(18, 9, 2, '$2b$10$VKKwxqlRL9VcKlQslCFGY.W.aLshcYu3FV7eVnncQ15cdjql31yWK'),
+(19, 9, 3, '$2b$10$HcUv6/AeIlOCypvn7IEpy.oVo/SCpKU5kid1KSQJ17YXMLC0r5A3i'),
+(20, 9, 4, '$2b$10$ePXKx56VkP3MAlqO.NIl..Iegdh.aOIwEOsjN3JhHgloWh86hyde.'),
+(21, 9, 5, '$2b$10$/s.x1gJju2X3QgfsED79s.dsumU0z9YllJ1gOyS9ynty7rtdHdpwC'),
+(22, 9, 6, '$2b$10$Jo.4JtiiiWv1OUoccJdKcOsts78sZFX6wYmdGLXMRYWAn6jTyvd2.'),
+(23, 9, 7, '$2b$10$MVddkgUuplow444krgh0duVyFxH738sWzTGSiQvvNP2mPYfNUjI46'),
+(24, 9, 8, '$2b$10$phwlAfeimbw82nIowIzlbO/PG/TT0NcisA7h2mf/CL1bb5SrN4Gzy'),
+(25, 9, 9, '$2b$10$ywdLDSbSM65CNrr1NWjIJeZ5JH4PIHsPZTU.iDd0MgPx10px6MMZ6'),
+(26, 9, 10, '$2b$10$CeRffHqXWJhS/5XI1FA73OA56bofsaubPoQy/maVFM1dtSbGtkQ6G');
 
 -- --------------------------------------------------------
 
@@ -118,20 +102,6 @@ CREATE TABLE `orders` (
   `customer_name` varchar(30) DEFAULT NULL,
   `total_price` int(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `tableId`, `no_meja`, `create_at`, `update_at`, `status`, `customer_contact`, `customer_name`, `total_price`) VALUES
-(578, 13, 505, '2023-04-02', '2023-04-02', 'success', '0812-1242-7854', 'Aldi', 54000),
-(579, 13, 505, '2023-04-09', '2023-04-09', 'on_progress', '0812-1242-7854', 'Aldi', 54000),
-(580, 13, 505, '2023-04-09', '2023-04-09', 'on_progress', '0812-1242-7854', 'Aldi', 54000),
-(581, 13, 505, '2023-04-09', '2023-04-09', 'on_progress', '0812-1242-7854', 'Aldi', 54000),
-(582, 13, 505, '2023-04-09', '2023-04-09', 'on_progress', '0812-1242-7854', 'Aldi', 54000),
-(583, 13, 505, '2023-04-09', '2023-04-09', 'on_progress', '0812-1242-7854', 'Aldi', 54000),
-(584, 13, 505, '2023-04-09', '2023-04-09', 'success', '0812-1242-7854', 'Aldi', 54000),
-(585, 16, 588, '2023-04-10', '2023-04-10', 'success', '0812-1242-7854', 'Aldi', 44000);
 
 -- --------------------------------------------------------
 
@@ -158,9 +128,17 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `discount`, `qty`, `create_at`, `update_at`, `category_id`, `user_id`, `type`, `image`) VALUES
-(12, 'Nasi Kucing', 20000, 0, -4, '2023-02-19', '2023-02-19', 2, 9, 'MAKANAN', '2.jpeg'),
-(13, 'Aqua Botol 1000ml', 7000, 0, 8, '0000-00-00', '0000-00-00', 1, 9, 'MINUMAN', '2.jpeg'),
-(15, 'Mie Goreng + Telor', 15000, 0, 11, '2023-04-10', '2023-04-10', 2, 20, 'MAKANAN', 'miegoreng.jpeg');
+(16, 'Vietnam Drip', 15000, 0, 50, '2025-01-20', '2025-01-20', 1, 9, 'MINUMAN', 'VietnamDrip.jpg'),
+(17, 'Coffee Aren', 15000, 0, 50, '2025-01-20', '2025-01-20', 1, 9, 'MINUMAN', 'coffeeAren.jpg'),
+(18, 'Caffe Latte Ice', 15000, 0, 50, '2025-01-20', '2025-01-20', 1, 9, 'MINUMAN', 'CaffeLatteIce.jpg'),
+(19, 'Caffe Latte Hot', 15000, 0, 50, '2025-01-20', '2025-01-20', 1, 9, 'MINUMAN', 'CaffeLatteHot.jpg'),
+(20, 'Espresso Ice', 15000, 0, 50, '2025-01-20', '2025-01-20', 1, 9, 'MINUMAN', 'IceEspresso.jpg'),
+(21, 'Espresso Hot', 15000, 0, 50, '2025-01-20', '2025-01-20', 1, 9, 'MINUMAN', 'HotEspresso.jpg'),
+(22, 'Espresso Matcha Ice', 15000, 0, 50, '2025-01-20', '2025-01-20', 1, 9, 'MINUMAN', 'icedEspressoMatcha.jpg'),
+(23, 'Sosis Goreng', 15000, 0, 50, '2025-01-20', '2025-01-20', 2, 9, 'MAKANAN', 'SosisGoreng.jpg'),
+(24, 'Sosis Bakar', 15000, 0, 50, '2025-01-20', '2025-01-20', 2, 9, 'MAKANAN', 'sosisBakar.jpg'),
+(25, 'Kentang Goreng', 15000, 0, 50, '2025-01-20', '2025-01-20', 2, 9, 'MAKANAN', 'kentangGoreng.jpg'),
+(26, 'Telur Gulung', 15000, 0, 50, '2025-01-20', '2025-01-20', 2, 9, 'MAKANAN', 'Telor gulung.jpg');
 
 -- --------------------------------------------------------
 
@@ -250,7 +228,7 @@ ALTER TABLE `detail_order`
 -- AUTO_INCREMENT for table `food_tables`
 --
 ALTER TABLE `food_tables`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -262,7 +240,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `users`

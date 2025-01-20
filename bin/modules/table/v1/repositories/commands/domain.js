@@ -8,7 +8,6 @@ const wrapper = require("../../../../../helpers/utils/wrapper");
 const command = require("../commands/command");
 const QRCode = require("qrcode");
 const moment = require("moment-timezone");
-// const { table } = require('console');
 moment.tz("Asia/Jakarta");
 
 class Table {
@@ -52,12 +51,12 @@ class Table {
           insertOneTable.code
         );
       } else {
-        const qrCodeText = `http://localhost:8080/${payload.noMeja}`;
+        const qrCodeText = `http://localhost:8000/${payload.noMeja}`;
         const src = `./bin/public/images/${payload.noMeja}.png`;
         const stream = fs.createWriteStream(src);
         await QRCode.toFileStream(stream, qrCodeText);
       }
-      return wrapper.data("", "Succes Input", 201);
+      return wrapper.data(payload, "Succes Input", 201);
     } catch (error) {
       return wrapper.error("err");
     }

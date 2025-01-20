@@ -8,6 +8,15 @@ const listOrder = async (param) => {
   return result;
 };
 
+const getOrderByOrderId = async (param) => {
+  // const param;
+  const db = new Mysql(configs.get("/mysqlConfig"));
+  const query = `SELECT * FROM orders WHERE orders.id = "${param}"`;
+  const result = await db.query(query);
+  // console.log(result,'AWAWAWAWAWA')
+  return result;
+};
+
 const listOrderByStatusSuccess = async (param) => {
   const { order_id } = param;
   const db = new Mysql(configs.get("/mysqlConfig"));
@@ -54,4 +63,5 @@ module.exports = {
   listProduct,
   findOrderByStatus,
   listOrderByStatusSuccess,
+  getOrderByOrderId
 };
