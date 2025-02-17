@@ -22,7 +22,7 @@ class Order {
     } else if (getInvoice.data.length === 0) {
       return wrapper.data([], "Data Not Found", 404);
     }
-    getInvoice = getInvoice.data.map((v) => Object.assign({}, v));
+    getInvoice = getInvoice.data[0];
     return wrapper.data(getInvoice, "Success", 201);
   
   }

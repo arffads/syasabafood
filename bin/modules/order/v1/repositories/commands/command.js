@@ -10,10 +10,11 @@ const insertOrder = async (param) => {
     customerContact,
     customerName,
     total_price,
+    payment_type,
     createAt,
     updateAt,
   } = param;
-  const query = `INSERT INTO orders (tableId, no_meja, status, customer_name, customer_contact, total_price, create_at, update_at) VALUES (${tableId}, ${noMeja},"${status}","${customerName}","${customerContact}",${total_price},"${createAt}","${updateAt}")`;
+  const query = `INSERT INTO orders (tableId, no_meja, status, customer_name, customer_contact, total_price,payment_type, create_at, update_at) VALUES (${tableId}, ${noMeja},"${status}","${customerName}","${customerContact}",${total_price},"${payment_type}","${createAt}","${updateAt}")`;
   const result = await db.query(query, [param]);
   return result;
 };

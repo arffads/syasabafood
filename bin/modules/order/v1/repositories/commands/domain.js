@@ -10,7 +10,7 @@ class Order {
     const dateNow = moment();
     const payloadOrder = {
       ...payload,
-      status: "on_progress",
+      status: "waiting_for_paid",
       createAt: `${dateNow.format("YYYY-MM-DD HH:mm:ss")}`,
       updateAt: `${dateNow.format("YYYY-MM-DD HH:mm:ss")}`,
     };

@@ -20,7 +20,7 @@ const getOrderByOrderId = async (param) => {
 const listOrderByStatusSuccess = async (param) => {
   const { order_id } = param;
   const db = new Mysql(configs.get("/mysqlConfig"));
-  const query = ` SELECT * FROM orders JOIN detail_order ON detail_order.order_id = orders.id JOIN products ON detail_order.product_id = products.id WHERE orders.id = ${order_id} AND orders.status = "success" ORDER BY orders.create_at DESC`;
+  const query = `SELECT * FROM orders WHERE orders.id = ${order_id} ORDER BY orders.create_at DESC`;
   const result = await db.query(query);
   return result;
 };

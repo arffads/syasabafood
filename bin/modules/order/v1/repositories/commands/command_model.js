@@ -8,6 +8,7 @@ const insertOrder = joi.object({
   customerName: joi.string().optional(),
   customerContact: joi.string().optional(),
   total_price: joi.number().required(),
+  payment_type: joi.string().optional(),
   item: joi.array().items(
     joi.object().keys({
       productId: joi.number().required(),
